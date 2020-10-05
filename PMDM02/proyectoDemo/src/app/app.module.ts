@@ -6,12 +6,13 @@ import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
 
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
-import { MayusculasPipe } from './pipes/mayusculas.pipe';
 
 @NgModule({
-  declarations: [AppComponent, MayusculasPipe],
+  declarations: [AppComponent],
   entryComponents: [],
   imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule],
   providers: [
