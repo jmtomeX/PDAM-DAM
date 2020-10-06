@@ -15,14 +15,27 @@
     <ion-label>Mis Personas</ion-label>
   </ion-list-header>
   <ion-list>
-    <ion-item *ngFor="let persona of servicio.personas">
-      <ion-label>{{persona.nombre|mayusculas}}</ion-label>
-      <ion-buttons slot="end">
-        <ion-button (click)="deletedPerson(persona)" color="danger" size="small">
+    <ion-row *ngFor="let persona of servicio.personas">
+      <ion-col size="10" class="selected">
+
+        <div (click)="navegar(persona.id)">
+          <!-- de está manera no hhace falta inyectaarlo en el home.page.ts -->
+        <!-- <div routerLink="/detalle-persona/{persona.id}"> -->
+          <ion-label>{{persona.nombre|mayusculas}}</ion-label>
+          <ion-buttons slot="end"> </ion-buttons>
+        </div>
+      </ion-col>
+
+      <ion-col size="2" >
+        <ion-button
+          (click)="deletedPerson(persona)"
+          color="danger"
+          size="small"
+        >
           <ion-icon name="trash-outline"></ion-icon>
         </ion-button>
-      </ion-buttons>
-    </ion-item>
+      </ion-col>
+    </ion-row>
   </ion-list>
 
   <ion-fab slot="fixed" vertical="bottom" horizontal="end">

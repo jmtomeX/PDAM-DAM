@@ -3,6 +3,8 @@ import { ModalController } from '@ionic/angular';
 import { Persona } from '../modelo/persona';
 import { ServicioPersonasService } from '../servicios/servicio-personas.service';
 import { ModalPersonaPage } from '../modal-persona/modal-persona.page';
+import { Router } from '@angular/router';
+import { DetallePersonaPage } from '../detalle-persona/detalle-persona.page';
 
 
 
@@ -13,7 +15,7 @@ import { ModalPersonaPage } from '../modal-persona/modal-persona.page';
 })
 export class HomePage {
 
-  constructor(public servicio: ServicioPersonasService, public modalCtrl: ModalController) { }
+  constructor(public servicio: ServicioPersonasService, public modalCtrl: ModalController, public router: Router) { }
 
   async addPersona() {
     console.log('home-page addPersona');
@@ -30,12 +32,20 @@ export class HomePage {
 
     // Añadir persona?
     if (data) {
-      this.servicio.addPersona(new Persona(data.data.nombre, data.data.apellido));
+      const idPerson = this.servicio.personas.length + 1;
+      console.log(idPerson);
+      this.servicio.addPersona(new Persona(data.data.nombre, data.data.apellido, idPerson));
     }
   }
 
   public deletedPerson(item: Persona) {
     this.servicio.deletePerson(item);
+  }
+
+  public navegar(id) {
+    console.log(id);
+
+    this.router.navigate(['/detalle-persona/' + id]);
   }
 
 }

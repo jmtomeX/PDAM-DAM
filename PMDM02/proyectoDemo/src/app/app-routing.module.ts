@@ -12,7 +12,7 @@ const routes: Routes = [
     pathMatch: 'full'
   },
   {
-    path: 'detalle-persona',
+    path: 'detalle-persona/:myId',
     loadChildren: () => import('./detalle-persona/detalle-persona.module').then( m => m.DetallePersonaPageModule)
   },
   {

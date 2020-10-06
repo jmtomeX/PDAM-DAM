@@ -5,7 +5,7 @@ export class Persona {
     constructor(
         public nombre: string,
         public apellido: string,
-        public id: number = -1
+        public id: number = 1
     ) {
 
     }
@@ -13,8 +13,7 @@ export class Persona {
     clonar(): Persona {
         return null;
     }
-    public static fromJson(data): Persona {
-        return null;
-    }
+    // public static fromJson(data): Persona {
+  //  }
 
 }

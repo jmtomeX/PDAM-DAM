@@ -10,10 +10,10 @@ export class ServicioPersonasService {
 
   constructor() {
     this.personas = [
-      new Persona('Angel', 'Pepin'),
-      new Persona('María', 'Lucida'),
-      new Persona('Charlie', 'Walk'),
-      new Persona('Louise', 'Tist'),
+      new Persona('Angel', 'Pepin', 1),
+      new Persona('María', 'Lucida', 2),
+      new Persona('Charlie', 'Walk', 3),
+      new Persona('Louise', 'Tist', 4),
     ];
   }
 
@@ -22,7 +22,9 @@ export class ServicioPersonasService {
   }
 
   public getPersona(id): Persona {
-    return this.personas.find(persona => persona.id === id);
+    const personaE = this.personas.find(persona => persona.id === id);
+    console.log('desde servicio getPersona ' + personaE);
+    return personaE;
   }
 
   public deletePerson(item: Persona) {
