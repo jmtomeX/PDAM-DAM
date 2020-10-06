@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
+import { ModalController } from '@ionic/angular';
 @Component({
   selector: 'app-modal-persona',
   templateUrl: './modal-persona.page.html',
@@ -8,7 +9,8 @@ import { FormBuilder, Validators } from '@angular/forms';
 })
 export class ModalPersonaPage implements OnInit {
   formulario;
-  constructor(public formBuilder: FormBuilder) {
+  // para el dismiss se inyecta el modalCtrl
+  constructor(public formBuilder: FormBuilder, public modalCtrl: ModalController) {
     this.formulario = formBuilder.group({
       nombre: ['',
         Validators.compose([Validators.maxLength(30),
@@ -23,8 +25,16 @@ export class ModalPersonaPage implements OnInit {
     });
 
   }
-  enviar() { }
   ngOnInit() {
+  }
+  public cerrar() {
+    this.modalCtrl.dismiss();
+  }
+  public enviar(value) { 
+    this.modalCtrl.dismiss({
+      // devolver la información a home.ts
+      data: value
+    });
   }
 
 }

@@ -5,6 +5,7 @@ import { Persona } from '../modelo/persona';
   providedIn: 'root'
 })
 export class ServicioPersonasService {
+
   personas: Persona[];
 
   constructor() {
@@ -22,5 +23,12 @@ export class ServicioPersonasService {
 
   public getPersona(id): Persona {
     return this.personas.find(persona => persona.id === id);
+  }
+
+  public deletePerson(item: Persona) {
+    // recoger la posición del array
+    const index = this.personas.indexOf(item);
+    // divider el array en inicio y fin
+    this.personas = [...this.personas.slice(0, index), ...this.personas.slice(index + 1)];
   }
 }

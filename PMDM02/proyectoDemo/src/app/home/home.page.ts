@@ -24,9 +24,18 @@ export class HomePage {
       component: ModalPersonaPage
     });
     await modal.present();
+    // recoger datos del modal cuando se cierra
+    const { data } = await modal.onWillDismiss();
+    console.log(data);
 
     // Añadir persona?
+    if (data) {
+      this.servicio.addPersona(new Persona(data.data.nombre, data.data.apellido));
+    }
+  }
 
+  public deletedPerson(item: Persona) {
+    this.servicio.deletePerson(item);
   }
 
 }
