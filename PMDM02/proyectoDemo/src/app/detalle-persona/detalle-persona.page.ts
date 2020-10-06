@@ -15,7 +15,7 @@ export class DetallePersonaPage implements OnInit {
 
   ngOnInit() {
     this.id = this.activatedRouter.snapshot.paramMap.get('myId');
-    console.log('detalle-persona ngOnInit ' + this.id);    
+    console.log('detalle-persona ngOnInit ' + this.id);
     this.persona = this.servicio.getPersona(this.id);
     console.log('detalla-persona ' + this.persona);
 
