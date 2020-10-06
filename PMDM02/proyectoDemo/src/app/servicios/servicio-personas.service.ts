@@ -22,7 +22,7 @@ export class ServicioPersonasService {
   }
 
   public getPersona(id): Persona {
-    const personaE = this.personas.find(persona => persona.id === id);
+    const personaE = this.personas.find(persona => persona.id == id);
     console.log('desde servicio getPersona ' + personaE);
     return personaE;
   }
@@ -30,7 +30,7 @@ export class ServicioPersonasService {
   public deletePerson(item: Persona) {
     // recoger la posición del array
     const index = this.personas.indexOf(item);
-    // divider el array en inicio y fin
+    // dividir el array en inicio y fin
     this.personas = [...this.personas.slice(0, index), ...this.personas.slice(index + 1)];
   }
 }

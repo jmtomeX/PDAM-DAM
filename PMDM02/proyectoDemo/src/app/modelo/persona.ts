@@ -1,7 +1,6 @@
 import { NullTemplateVisitor } from '@angular/compiler';
 
 export class Persona {
-    private static personas = 0;
     constructor(
         public nombre: string,
         public apellido: string,
@@ -9,11 +8,14 @@ export class Persona {
     ) {
 
     }
+    private static personas = 0;
+    public static fromJson(data): Persona {
+        this.personas = JSON.parse(data.data);
+        return data;
+    }
 
     clonar(): Persona {
         return null;
     }
-    // public static fromJson(data): Persona {
-  //  }
 
 }

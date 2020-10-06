@@ -4,8 +4,6 @@ import { Persona } from '../modelo/persona';
 import { ServicioPersonasService } from '../servicios/servicio-personas.service';
 import { ModalPersonaPage } from '../modal-persona/modal-persona.page';
 import { Router } from '@angular/router';
-import { DetallePersonaPage } from '../detalle-persona/detalle-persona.page';
-
 
 
 @Component({
@@ -18,7 +16,6 @@ export class HomePage {
   constructor(public servicio: ServicioPersonasService, public modalCtrl: ModalController, public router: Router) { }
 
   async addPersona() {
-    console.log('home-page addPersona');
     // this.servicio.addPersona(new Persona('Prueba desde ', 'servicio'));
     // lanzar modal
     const modal = await this.modalCtrl.create({
@@ -30,7 +27,7 @@ export class HomePage {
     const { data } = await modal.onWillDismiss();
     console.log(data);
 
-    // Añadir persona?
+    // Añadir persona
     if (data) {
       const idPerson = this.servicio.personas.length + 1;
       console.log(idPerson);
