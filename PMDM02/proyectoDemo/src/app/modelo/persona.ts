@@ -10,8 +10,7 @@ export class Persona {
     }
     private static personas = 0;
     public static fromJson(data): Persona {
-        this.personas = JSON.parse(data.data);
-        return data;
+        return null;
     }
 
     clonar(): Persona {

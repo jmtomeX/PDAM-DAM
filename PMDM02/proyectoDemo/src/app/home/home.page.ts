@@ -40,9 +40,15 @@ export class HomePage {
   }
 
   public navegar(id) {
-    console.log(id);
-
     this.router.navigate(['/detalle-persona/' + id]);
   }
-
+  public aplicarStilosPersona(persona: Persona){
+    const styles = {
+      color: persona.nombre.startsWith('A') ? 'red' : 'Blue',
+    };
+    return styles;
+  }
+  public log(){
+    console.log('click');
+  }
 }

@@ -22,9 +22,9 @@ export class ServicioPersonasService {
   }
 
   public getPersona(id): Persona {
-    const personaE = this.personas.find(persona => persona.id == id);
-    console.log('desde servicio getPersona ' + personaE);
-    return personaE;
+    const personaM = this.personas.find(persona => persona.id == id);
+    console.log('desde servicio getPersona ' + JSON.stringify(personaM));
+    return personaM;
   }
 
   public deletePerson(item: Persona) {
