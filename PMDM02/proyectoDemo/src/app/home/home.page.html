@@ -19,7 +19,7 @@
       <ion-col size="10" class="selected">
 
         <div (click)="navegar(persona.id)">
-          <!-- de está manera no hhace falta inyectaarlo en el home.page.ts -->
+          <!-- de está manera no hace falta inyectaarlo en el home.page.ts -->
         <!-- <div routerLink="/detalle-persona/{persona.id}"> -->
           <ion-label [ngStyle]="aplicarStilosPersona(persona)">{{persona.nombre|mayusculas}}</ion-label>
           <ion-buttons slot="end"> </ion-buttons>

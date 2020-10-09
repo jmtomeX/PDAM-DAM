@@ -11,6 +11,10 @@ const routes: Routes = [
     redirectTo: 'home',
     pathMatch: 'full'
   },
+  {
+    path: 'modal-task',
+    loadChildren: () => import('./pages/modal-task/modal-task.module').then( m => m.ModalTaskPageModule)
+  },
 ];
 
 @NgModule({

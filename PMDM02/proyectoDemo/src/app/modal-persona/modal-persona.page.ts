@@ -30,7 +30,7 @@ export class ModalPersonaPage implements OnInit {
   public cerrar() {
     this.modalCtrl.dismiss();
   }
-  public enviar(value) { 
+  public enviar(value) {
     this.modalCtrl.dismiss({
       // devolver la información a home.ts
       data: value
