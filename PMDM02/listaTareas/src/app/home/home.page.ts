@@ -3,6 +3,7 @@ import { ModalTaskPage } from '../pages/modal-task/modal-task.page';
 import { ModalController } from '@ionic/angular';
 import { ServiceTaskService } from '../services/service-task.service';
 import { Task } from '../model/task';
+import { StylesCompileDependency } from '@angular/compiler';
 
 @Component({
   selector: 'app-home',
@@ -10,7 +11,6 @@ import { Task } from '../model/task';
   styleUrls: ['home.page.scss'],
 })
 export class HomePage {
-
   constructor(public modalCtrl: ModalController, public serviceTask: ServiceTaskService) {
 
   }
@@ -31,4 +31,20 @@ export class HomePage {
     }
 
   }
+
+
+  public TaskIsImportant(task: Task){
+    const styles = {
+      color: task.isImportant ? 'red' : 'black',
+     // font-weight: task.isImportant ? 'bold' : 'normal',
+    };
+    return styles;
+  }
+
+  public updateFinished(item: Task) {
+    console.log('Cucumbers new state:' + item.finished);
+  }
+  log(){}
 }
+
+

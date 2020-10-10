@@ -9,10 +9,10 @@ export class ServiceTaskService {
   tasks: Task[];
   constructor() {
     this.tasks = [
-      new Task('Angel'),
-      new Task('María'),
-      new Task('Charlie', true, true),
-      new Task('Louise')
+      new Task('Galletas'),
+      new Task('Itv', true, true),
+      new Task('Azúcar', true, true),
+      new Task('Pan')
     ];
   }
 
