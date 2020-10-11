@@ -27,12 +27,23 @@
     </ion-item>
 
     <ion-button
+    *ngIf="!isUpdateTask"
       color="primary"
       expand="block"
       type="submit"
       vertical="bottom"
       [disabled]="!formTask.valid"
-      >{{action}}</ion-button
+      >Añadir Tarea</ion-button
+    >
+
+    <ion-button
+    *ngIf="isUpdateTask"
+      color="primary"
+      expand="block"
+      type="submit"
+      vertical="bottom"
+      [disabled]="!formTask.valid"
+      >Guardar tarea</ion-button
     >
   </form>
 </ion-content>

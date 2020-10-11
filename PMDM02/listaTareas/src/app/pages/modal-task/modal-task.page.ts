@@ -10,7 +10,6 @@ import { Task } from '../../model/task';
 })
 export class ModalTaskPage implements OnInit {
   public title = 'Añadir nueva Tarea';
-  public action = 'Añadir';
   formTask;
   task: Task;
   isUpdateTask: boolean;
@@ -35,10 +34,11 @@ export class ModalTaskPage implements OnInit {
   ngOnInit() {
     if (this.isUpdateTask) {
       this.title = 'Modificar Tarea';
-      this.action = 'Guardar tarea';
-
     }
-
+    console.log(this.isUpdateTask);
+  }
+  ionViewWillEnter(){
+    console.log('ionViewWillEnter desde modal');
   }
 
   public exitModal() {

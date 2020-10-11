@@ -19,7 +19,11 @@ export class HomePage {
   async addTask() {
     // lanzar modal
     const modal = await this.modalCtrl.create({
-      component: ModalTaskPage
+      component: ModalTaskPage,
+      componentProps: {
+        isUpdate: false
+      }
+
     });
     await modal.present();
     // recoger los datos del modal al cerrar.directory
@@ -46,8 +50,9 @@ export class HomePage {
     const modal = await this.modalCtrl.create({
       component: ModalTaskPage,
       componentProps: {
-         data: item,
-        isUpdate: true }
+        data: item,
+        isUpdate: true
+      }
     }
     );
     await modal.present();
