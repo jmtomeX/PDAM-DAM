@@ -11,6 +11,7 @@ import { StylesCompileDependency } from '@angular/compiler';
   styleUrls: ['home.page.scss'],
 })
 export class HomePage {
+  modalupdate;
   constructor(public modalCtrl: ModalController, public serviceTask: ServiceTaskService) {
 
   }
@@ -32,19 +33,35 @@ export class HomePage {
 
   }
 
-
-  public TaskIsImportant(task: Task){
-    const styles = {
-      color: task.isImportant ? 'red' : 'black',
-     // font-weight: task.isImportant ? 'bold' : 'normal',
-    };
-    return styles;
-  }
-
   public updateFinished(item: Task) {
     console.log('Cucumbers new state:' + item.finished);
   }
-  log(){}
+
+  public deleteTask(item) {
+    this.serviceTask.deleteTask(item);
+  }
+
+  async upadateTask(item) {
+    // lanzar modal
+    const modal = await this.modalCtrl.create({
+      component: ModalTaskPage,
+      componentProps: {
+         data: item,
+        isUpdate: true }
+    }
+    );
+    await modal.present();
+    // recoger los datos del modal al cerrar.directory
+    const { data } = await modal.onWillDismiss();
+    console.log('Home.page ' + JSON.stringify(data));
+    // Añadir tarea
+    if (data) {
+      this.serviceTask.updateTask(new Task(data.data.description, data.data.isImportant));
+    }
+  }
+  log() { }
 }
 
+// https://medium.com/@josephat94/modals-en-ionic-3-f7173188c4a8
 
+// https://forum.ionicframework.com/t/solved-ionic-4-need-to-know-how-to-work-the-modal-controller/136414           <------------

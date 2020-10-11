@@ -16,7 +16,22 @@ export class ServiceTaskService {
     ];
   }
 
-  public addTask(item: Task){
+  public addTask(item: Task) {
     this.tasks = [...this.tasks, item];
+  }
+
+  public deleteTask(item: Task) {
+    const index = this.searchTask(item);
+    this.tasks = [...this.tasks.slice(0, index), ...this.tasks.slice(index + 1)];
+  }
+
+  public updateTask(item: Task) {
+    const index = this.searchTask(item);
+    this.tasks = [...this.tasks.slice(0, index), item, ...this.tasks.slice(index + 1)];
+  }
+
+  private searchTask(task): number {
+    const foundTask = this.tasks.indexOf(task);
+    return foundTask;
   }
 }

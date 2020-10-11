@@ -23,15 +23,17 @@
           <ion-item>
             <ion-label
               class="ion-padding-start"
-              [ngStyle]="TaskIsImportant(item)"
+              [ngStyle]="{
+                'font-weight': item.isImportant ? 'bold' : 'normal'
+              }"
             >
               {{ item.description }}</ion-label
             >
           </ion-item>
 
           <ion-item-options side="end">
-            <ion-item-option (click)="log()">Modificar</ion-item-option>
-            <ion-item-option color="danger" (click)="log()"
+            <ion-item-option (click)="upadateTask(item)">Modificar</ion-item-option>
+            <ion-item-option color="danger" (click)="deleteTask(item)"
               >Borrar</ion-item-option
             >
           </ion-item-options>
@@ -48,3 +50,9 @@
     </ion-fab-button>
   </ion-fab>
 </ion-content>
+
+
+<!-- https://www.etnassoft.com/2016/09/09/eliminar-un-elemento-de-un-array-en-javascript-metodos-mutables-e-inmutables/
+
+
+http://chuwiki.chuidiang.org/index.php?title=Arrays_y_Objetos_en_JavaScript -->
