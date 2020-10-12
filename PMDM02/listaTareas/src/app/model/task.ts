@@ -9,7 +9,7 @@ export class Task {
         public finished: boolean = false
     ) { }
 
-    public static clonaTask(itemTask: Task): Task {
+    public static clonTask(itemTask: Task): Task {
         return new Task(itemTask.description, itemTask.isImportant, itemTask.finished);
     }
 

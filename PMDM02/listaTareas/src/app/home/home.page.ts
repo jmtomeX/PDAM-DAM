@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ModalTaskPage } from '../pages/modal-task/modal-task.page';
 import { ModalController } from '@ionic/angular';
 import { ServiceTaskService } from '../services/service-task.service';
@@ -10,10 +10,20 @@ import { StylesCompileDependency } from '@angular/compiler';
   templateUrl: 'home.page.html',
   styleUrls: ['home.page.scss'],
 })
-export class HomePage {
+export class HomePage implements OnInit {
   modalupdate;
-  constructor(public modalCtrl: ModalController, public serviceTask: ServiceTaskService) {
+  withFinishedTasks;
 
+
+  constructor(public modalCtrl: ModalController, public serviceTask: ServiceTaskService) {
+  }
+  ngOnInit() {
+
+  }
+
+  // carga de datos
+  ionViewDidEnter(){
+    this.checkForTasks();
   }
 
   async addTask() {
@@ -39,6 +49,7 @@ export class HomePage {
 
   public updateFinished(item: Task) {
     console.log('Cucumbers new state:' + item.finished);
+    this.checkForTasks();
   }
 
   public deleteTask(item) {
@@ -64,7 +75,12 @@ export class HomePage {
       this.serviceTask.updateTask(new Task(data.data.description, data.data.isImportant));
     }
   }
-  log() { }
+  private checkForTasks(): boolean {
+    this.withFinishedTasks = this.serviceTask.checkForTasks();
+    return this.withFinishedTasks;
+  }
+
+
 }
 
 // https://medium.com/@josephat94/modals-en-ionic-3-f7173188c4a8

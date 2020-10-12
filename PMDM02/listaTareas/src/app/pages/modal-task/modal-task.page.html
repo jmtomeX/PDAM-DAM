@@ -21,29 +21,21 @@
         formControlName="isImportant"
         color="primary"
         [(ngModel)]="formTask.isChecked || task.isImportant"
+        events="ionChange"
         [disabled]="!formTask.valid"
       ></ion-checkbox>
       <ion-title class="font-main" color="primary">Es importante</ion-title>
     </ion-item>
 
     <ion-button
-    *ngIf="!isUpdateTask"
       color="primary"
       expand="block"
       type="submit"
       vertical="bottom"
       [disabled]="!formTask.valid"
-      >Añadir Tarea</ion-button
+      >{{actionSend}}</ion-button
     >
 
-    <ion-button
-    *ngIf="isUpdateTask"
-      color="primary"
-      expand="block"
-      type="submit"
-      vertical="bottom"
-      [disabled]="!formTask.valid"
-      >Guardar tarea</ion-button
-    >
+
   </form>
 </ion-content>
