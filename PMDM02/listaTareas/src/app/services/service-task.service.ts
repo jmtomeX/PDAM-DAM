@@ -9,10 +9,10 @@ export class ServiceTaskService {
   tasks: Task[];
   constructor() {
     this.tasks = [
-      new Task('Galletas'),
-      new Task('Itv', true, true),
-      new Task('Azúcar', true, true),
-      new Task('Pan')
+      new Task(1, 'Galletas'),
+      new Task(2, 'Itv', true, true),
+      new Task(3, 'Azúcar', true, true),
+      new Task(4, 'Pan')
     ];
   }
 
@@ -30,13 +30,20 @@ export class ServiceTaskService {
     this.tasks = [...this.tasks.slice(0, index), item, ...this.tasks.slice(index + 1)];
   }
 
-  // método interno para buscar un item en el array
+  // función interno para buscar un item en el array
   private searchTask(task): number {
     const foundTask = this.tasks.indexOf(task);
     return foundTask;
   }
 
-  // método para comprobar si hay tareas terminadas
+  // función para devolver una tarea por id
+
+  public getTask(id): Task {
+    const task = this.tasks.find(taskFind => taskFind.id == id);
+    return task;
+  }
+
+  // función para comprobar si hay tareas terminadas
   public checkForTasks(): boolean {
     let state;
     let count = 0;

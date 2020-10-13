@@ -15,6 +15,10 @@ const routes: Routes = [
     path: 'modal-task',
     loadChildren: () => import('./pages/modal-task/modal-task.module').then( m => m.ModalTaskPageModule)
   },
+  {
+    path: 'modal-task/:idTask',
+    loadChildren: () => import('./pages/modal-task/modal-task.module').then( m => m.ModalTaskPageModule)
+  },
 ];
 
 @NgModule({

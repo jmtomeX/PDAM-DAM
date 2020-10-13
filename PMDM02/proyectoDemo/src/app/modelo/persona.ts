@@ -13,8 +13,8 @@ export class Persona {
         return null;
     }
 
-    clonar(): Persona {
-        return null;
+    clonar(persona): Persona {
+        return new Persona(persona.id, persona.nombre, persona.apellido);
     }
 
 }

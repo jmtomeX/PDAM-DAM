@@ -42,7 +42,7 @@ export class HomePage {
   public navegar(id) {
     this.router.navigate(['/detalle-persona/' + id]);
   }
-  public aplicarStilosPersona(persona: Persona){
+    public aplicarStilosPersona(persona: Persona){
     const styles = {
       color: persona.nombre.startsWith('A') ? 'red' : 'Blue',
     };

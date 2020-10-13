@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
-import { MenuController, ModalController, NavParams } from '@ionic/angular';
+import { ActivatedRoute } from '@angular/router';
+import { MenuController, ModalController } from '@ionic/angular';
 import { Task } from '../../model/task';
 
 @Component({
@@ -9,12 +10,16 @@ import { Task } from '../../model/task';
   styleUrls: ['./modal-task.page.scss'],
 })
 export class ModalTaskPage implements OnInit {
-  public title = 'Añadir nueva Tarea';
-  public actionSend = 'Guardar';
+  title = 'Añadir nueva Tarea';
+  actionSend = 'Guardar';
+  @Input() isUpdateTask: boolean;
+  @Input() data: Task;
+
+
   formTask;
-  task: Task;
-  isUpdateTask: boolean;
-  constructor(public formBuilder: FormBuilder, public modalCtrl: ModalController, public navParams: NavParams) {
+
+  // tslint:disable-next-line: max-line-length
+  constructor(public formBuilder: FormBuilder, public modalCtrl: ModalController, private activatedRoute: ActivatedRoute) {
     this.formTask = formBuilder.group({
       description: ['',
         Validators.compose([
@@ -27,20 +32,17 @@ export class ModalTaskPage implements OnInit {
         Validators.compose([])
       ])
     });
-    // recoger parámetros desde el home
-    this.task = navParams.get('data');
-    this.isUpdateTask = navParams.get('isUpdate');
+
   }
 
   ngOnInit() {
+
     if (this.isUpdateTask) {
       this.title = 'Modificar Tarea';
       this.actionSend = 'Modificar';
     }
-    console.log(this.isUpdateTask);
   }
   ionViewWillEnter() {
-    console.log('ionViewWillEnter desde modal');
   }
 
   public exitModal() {
@@ -48,10 +50,12 @@ export class ModalTaskPage implements OnInit {
   }
 
   public sendTask(value) {
-    console.log(value);
+    console.log('desde modal task');
     // devolver la informacion a la vista home
     this.modalCtrl.dismiss({
-      data: value
+      // tslint:disable-next-line: object-literal-key-quotes
+      data: value,
+      'dismissed': true
     });
   }
 }

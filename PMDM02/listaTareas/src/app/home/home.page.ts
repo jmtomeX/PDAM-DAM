@@ -4,6 +4,7 @@ import { ModalController } from '@ionic/angular';
 import { ServiceTaskService } from '../services/service-task.service';
 import { Task } from '../model/task';
 import { StylesCompileDependency } from '@angular/compiler';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-home',
@@ -13,38 +14,17 @@ import { StylesCompileDependency } from '@angular/compiler';
 export class HomePage implements OnInit {
   modalupdate;
   withFinishedTasks;
+  isUpdateTask = false;
 
-
-  constructor(public modalCtrl: ModalController, public serviceTask: ServiceTaskService) {
+  constructor(public modalCtrl: ModalController, public serviceTask: ServiceTaskService, public router: Router) {
   }
   ngOnInit() {
 
   }
 
   // carga de datos
-  ionViewDidEnter(){
+  ionViewDidEnter() {
     this.checkForTasks();
-  }
-
-  async addTask() {
-    // lanzar modal
-    const modal = await this.modalCtrl.create({
-      component: ModalTaskPage,
-      componentProps: {
-        isUpdate: false
-      }
-
-    });
-    await modal.present();
-    // recoger los datos del modal al cerrar.directory
-    const { data } = await modal.onWillDismiss();
-    console.log(data.data.description);
-    console.log('Home.page ' + JSON.stringify(data));
-    // Añadir tarea
-    if (data) {
-      this.serviceTask.addTask(new Task(data.data.description, data.data.isImportant));
-    }
-
   }
 
   public updateFinished(item: Task) {
@@ -56,33 +36,44 @@ export class HomePage implements OnInit {
     this.serviceTask.deleteTask(item);
   }
 
-  async upadateTask(item) {
-    // lanzar modal
+
+  // Modificar tarea
+  public updateTaskNav(id) {
+    this.router.navigate(['/modal-task/' + id]);
+  }
+
+  // Nueva función para presentar el modal
+  async presentModal(isUpdateTask, idTask?) {
+    const valueTask = this.serviceTask.getTask(idTask);
+    console.log(valueTask);
+
     const modal = await this.modalCtrl.create({
       component: ModalTaskPage,
       componentProps: {
-        data: item,
-        isUpdate: true
+        data: valueTask,
+        isUpdate: isUpdateTask
+      },
+    });
+
+    await modal.present();
+    const { data } = await modal.onWillDismiss();
+    console.log('Datos a guardar ' + data);
+
+    if (data) {
+      if (isUpdateTask) {
+        this.serviceTask.updateTask(new Task(data.data.description, data.data.isImportant));
+      } else {
+        // tslint:disable-next-line: no-shadowed-variable
+        const idTask = this.serviceTask.tasks.length + 1;
+        this.serviceTask.addTask(new Task(idTask, data.data.description, data.data.isImportant));
+
       }
     }
-    );
-    await modal.present();
-    // recoger los datos del modal al cerrar.directory
-    const { data } = await modal.onWillDismiss();
-    console.log('Home.page ' + JSON.stringify(data));
-    // Añadir tarea
-    if (data) {
-      this.serviceTask.updateTask(new Task(data.data.description, data.data.isImportant));
-    }
   }
+
   private checkForTasks(): boolean {
     this.withFinishedTasks = this.serviceTask.checkForTasks();
     return this.withFinishedTasks;
   }
-
-
 }
 
-// https://medium.com/@josephat94/modals-en-ionic-3-f7173188c4a8
-
-// https://forum.ionicframework.com/t/solved-ionic-4-need-to-know-how-to-work-the-modal-controller/136414           <------------

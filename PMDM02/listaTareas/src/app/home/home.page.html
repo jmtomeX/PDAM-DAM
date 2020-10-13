@@ -11,10 +11,12 @@
   <div>
     <ion-list *ngFor="let item of serviceTask.tasks" lines="none">
       <ion-item *ngIf="!item.finished" lines="none">
-        <ion-checkbox
-          [(ngModel)]="item.finished"
-          ionChange="onChange($event)"
-        ></ion-checkbox>
+        <div>
+          <ion-checkbox
+            [(ngModel)]="item.finished"
+            ionChange="onChange($event)"
+          ></ion-checkbox>
+        </div>
 
         <!-- (ionChange)="updateFinished(item)" -->
 
@@ -32,7 +34,7 @@
           </ion-item>
 
           <ion-item-options side="end">
-            <ion-item-option (click)="upadateTask(item)"
+            <ion-item-option (click)="presentModal(true, item.id)"
               >Modificar</ion-item-option
             >
             <ion-item-option color="danger" (click)="deleteTask(item)"
@@ -54,13 +56,13 @@
     <!-- *****************************************************************************  -->
     <ion-list *ngFor="let item of serviceTask.tasks" lines="none">
       <ion-item *ngIf="item.finished" lines="none">
-        <ion-checkbox
-          [(ngModel)]="item.finished"
-          (ionChange)="updateFinished(item)"
+        <div>
+          <ion-checkbox
+            [(ngModel)]="item.finished"
+            (ionChange)="updateFinished(item)"
           ></ion-checkbox>
-          
-          <!-- ionChange="onChange($event)" -->
-
+        </div>
+        <!-- ionChange="onChange($event)" -->
         <!-- Sliding ******************************************************************** -->
         <ion-item-sliding>
           <ion-item>
@@ -76,9 +78,6 @@
           </ion-item>
 
           <ion-item-options side="end">
-            <ion-item-option (click)="upadateTask(item)"
-              >Modificar</ion-item-option
-            >
             <ion-item-option color="danger" (click)="deleteTask(item)"
               >Borrar</ion-item-option
             >
@@ -91,7 +90,7 @@
   </div>
 
   <ion-fab slot="fixed" vertical="bottom" horizontal="end">
-    <ion-fab-button (click)="addTask()">
+    <ion-fab-button (click)="presentModal(false)">
       <ion-icon name="add-outline"></ion-icon>
     </ion-fab-button>
   </ion-fab>
