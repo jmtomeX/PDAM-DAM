@@ -7,6 +7,7 @@ import { Task } from '../model/task';
 })
 export class ServiceTaskService {
   tasks: Task[];
+  task;
   constructor() {
     this.tasks = [
       new Task(1, 'Galletas'),
@@ -26,8 +27,14 @@ export class ServiceTaskService {
   }
 
   public updateTask(item: Task) {
-    const index = this.searchTask(item);
-    this.tasks = [...this.tasks.slice(0, index), item, ...this.tasks.slice(index + 1)];
+    console.log('desde servicio update ' + JSON.stringify(item));
+
+    const index = this.searchTask(JSON.stringify(item));
+    console.log(index);
+
+    this.task.description = item.description;
+    this.task.isImportant = item.isImportant;
+    this.tasks = [...this.tasks.slice(0, index), this.task, ...this.tasks.slice(index + 1)];
   }
 
   // función interno para buscar un item en el array

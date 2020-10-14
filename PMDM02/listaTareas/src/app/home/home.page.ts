@@ -36,12 +36,6 @@ export class HomePage implements OnInit {
     this.serviceTask.deleteTask(item);
   }
 
-
-  // Modificar tarea
-  public updateTaskNav(id) {
-    this.router.navigate(['/modal-task/' + id]);
-  }
-
   // Nueva función para presentar el modal
   async presentModal(isUpdateTask, idTask?) {
     const valueTask = this.serviceTask.getTask(idTask);
@@ -57,11 +51,11 @@ export class HomePage implements OnInit {
 
     await modal.present();
     const { data } = await modal.onWillDismiss();
-    console.log('Datos a guardar ' + data);
+    console.log('Datos a guardar desde home ' + JSON.stringify(data));
 
     if (data) {
       if (isUpdateTask) {
-        this.serviceTask.updateTask(new Task(data.data.description, data.data.isImportant));
+        this.serviceTask.updateTask(data);
       } else {
         // tslint:disable-next-line: no-shadowed-variable
         const idTask = this.serviceTask.tasks.length + 1;
