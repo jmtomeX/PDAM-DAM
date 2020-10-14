@@ -22,6 +22,7 @@ export class ServicioPersonasService {
   }
 
   public getPersona(id): Persona {
+    // tslint:disable-next-line: triple-equals
     const personaM = this.personas.find(persona => persona.id == id);
     console.log('desde servicio getPersona ' + JSON.stringify(personaM));
     return personaM;

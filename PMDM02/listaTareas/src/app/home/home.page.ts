@@ -5,6 +5,7 @@ import { ServiceTaskService } from '../services/service-task.service';
 import { Task } from '../model/task';
 import { StylesCompileDependency } from '@angular/compiler';
 import { Router } from '@angular/router';
+import { from } from 'rxjs';
 
 @Component({
   selector: 'app-home',

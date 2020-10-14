@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { IonicModule } from '@ionic/angular';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HomePage } from './home.page';
-
+import { OrderTaskPipe } from '../pipes/order-task.pipe';
 import { HomePageRoutingModule } from './home-routing.module';
 
 
@@ -13,8 +13,8 @@ import { HomePageRoutingModule } from './home-routing.module';
     FormsModule,
     IonicModule,
     HomePageRoutingModule,
-    FormsModule,ReactiveFormsModule
+    FormsModule, ReactiveFormsModule
   ],
-  declarations: [HomePage]
+  declarations: [HomePage, OrderTaskPipe]
 })
-export class HomePageModule {}
+export class HomePageModule { }

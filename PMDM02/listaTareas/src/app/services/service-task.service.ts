@@ -46,6 +46,7 @@ export class ServiceTaskService {
   // función para devolver una tarea por id
 
   public getTask(id): Task {
+    // tslint:disable-next-line: triple-equals
     const task = this.tasks.find(taskFind => taskFind.id == id);
     return task;
   }
