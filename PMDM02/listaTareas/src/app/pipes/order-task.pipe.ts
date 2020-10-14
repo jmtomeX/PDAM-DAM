@@ -9,15 +9,18 @@ export class OrderTaskPipe implements PipeTransform {
 
     let tasksOrder: Task[];
 
-    tasksOrder =  value.sort((a, b) => {
-      if (a.isImportant < b.isImportant) {
+    tasksOrder = value.sort((a) => {
+      // tslint:disable-next-line: triple-equals
+      if (a.isImportant == false) {
         return 1;
       }
-      if (a.isImportant > b.isImportant) {
+      // tslint:disable-next-line: triple-equals
+      if (a.isImportant == true) {
         return -1;
       }
       return 0;
     });
+
     console.log(tasksOrder);
     return tasksOrder;
   }
