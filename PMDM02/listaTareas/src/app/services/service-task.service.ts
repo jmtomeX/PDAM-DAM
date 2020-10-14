@@ -28,16 +28,17 @@ export class ServiceTaskService {
 
   public updateTask(item: Task) {
     console.log('desde servicio update ' + JSON.stringify(item));
-
-    const index = this.searchTask(JSON.stringify(item));
-    console.log(index);
-
-    this.task.description = item.description;
-    this.task.isImportant = item.isImportant;
-    this.tasks = [...this.tasks.slice(0, index), this.task, ...this.tasks.slice(index + 1)];
+    const index = this.searchTask(item);
+    const auxTask: Task = this.tasks[index];
+    console.log('Array ' + index + this.tasks[index]);
+    // console.log('Auxiliar ' + JSON.stringify(auxTask));
+    
+    auxTask.description = item.description;
+    auxTask.isImportant = item.isImportant;
+    this.tasks = [...this.tasks.slice(0, index), auxTask, ...this.tasks.slice(index + 1)];
   }
 
-  // función interno para buscar un item en el array
+  // función interna para buscar un índice de tarea en el array
   private searchTask(task): number {
     const foundTask = this.tasks.indexOf(task);
     return foundTask;
@@ -46,8 +47,11 @@ export class ServiceTaskService {
   // función para devolver una tarea por id
 
   public getTask(id): Task {
+    // ******************************** Error hasta aquí devuelve
+    console.log('service Getid ' + id);
     // tslint:disable-next-line: triple-equals
     const task = this.tasks.find(taskFind => taskFind.id == id);
+    console.log('desde servicio getId ' + JSON.stringify(task));
     return task;
   }
 

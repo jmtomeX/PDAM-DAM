@@ -39,8 +39,10 @@ export class HomePage implements OnInit {
 
   // Nueva función para presentar el modal
   async presentModal(isUpdateTask, idTask?) {
+    
     const valueTask = this.serviceTask.getTask(idTask);
-    console.log(valueTask);
+   // const valueTask = this.serviceTask.getTask(idTask);
+    console.log('home idTask ' + idTask);
 
     const modal = await this.modalCtrl.create({
       component: ModalTaskPage,
@@ -55,6 +57,8 @@ export class HomePage implements OnInit {
     console.log('Datos a guardar desde home ' + JSON.stringify(data));
 
     if (data) {
+      console.log('desde actualizar en el if update' + data);
+      
       if (isUpdateTask) {
         this.serviceTask.updateTask(data);
       } else {
