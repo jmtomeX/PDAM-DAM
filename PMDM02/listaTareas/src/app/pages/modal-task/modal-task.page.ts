@@ -50,7 +50,6 @@ export class ModalTaskPage implements OnInit {
   }
 
   public sendTask(value) {
-    console.log('desde modal task' + JSON.stringify(value));
     // devolver la informacion a la vista home
     this.modalCtrl.dismiss({
       // tslint:disable-next-line: object-literal-key-quotes

@@ -2,6 +2,8 @@ import { stringify } from 'querystring';
 
 import { NullTemplateVisitor } from '@angular/compiler';
 export class Task {
+    // añadido por que item.data no se encuentra
+    [x: string]: any;
     task: Task;
     constructor(
         public id: number = -1,

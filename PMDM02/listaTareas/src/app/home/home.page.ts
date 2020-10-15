@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ModalTaskPage } from '../pages/modal-task/modal-task.page';
-import { ModalController } from '@ionic/angular';
+import { ModalController, ToastController } from '@ionic/angular';
 import { ServiceTaskService } from '../services/service-task.service';
 import { Task } from '../model/task';
 import { StylesCompileDependency } from '@angular/compiler';
@@ -16,20 +16,18 @@ export class HomePage implements OnInit {
   modalupdate;
   withFinishedTasks;
   isUpdateTask = false;
+  auxTask: Task;
 
-  constructor(public modalCtrl: ModalController, public serviceTask: ServiceTaskService, public router: Router) {
+  // tslint:disable-next-line: max-line-length
+  constructor(public modalCtrl: ModalController, public serviceTask: ServiceTaskService, public router: Router, public toastController: ToastController) {
   }
-  ngOnInit() {
+  ngOnInit() { }
 
-  }
-
-  // carga de datos
   ionViewDidEnter() {
     this.checkForTasks();
   }
 
   public updateFinished(item: Task) {
-    console.log('Cucumbers new state:' + item.finished);
     this.checkForTasks();
   }
 
@@ -39,10 +37,9 @@ export class HomePage implements OnInit {
 
   // Nueva función para presentar el modal
   async presentModal(isUpdateTask, idTask?) {
-    
     const valueTask = this.serviceTask.getTask(idTask);
-   // const valueTask = this.serviceTask.getTask(idTask);
-    console.log('home idTask ' + idTask);
+    this.auxTask = this.auxTask.cloneTask(valueTask);
+    console.log(JSON.stringify(this.auxTask));
 
     const modal = await this.modalCtrl.create({
       component: ModalTaskPage,
@@ -54,13 +51,24 @@ export class HomePage implements OnInit {
 
     await modal.present();
     const { data } = await modal.onWillDismiss();
-    console.log('Datos a guardar desde home ' + JSON.stringify(data));
 
     if (data) {
-      console.log('desde actualizar en el if update' + data);
-      
       if (isUpdateTask) {
-        this.serviceTask.updateTask(data);
+        // mostrar toast
+        if (valueTask.description != data.data.description ||
+          valueTask.isImportant != data.data.isImportant) {
+          this.serviceTask.updateTask(data, idTask);
+          console.log(JSON.stringify(data));
+          console.log(JSON.stringify(valueTask));
+          console.log('If ' + valueTask.isImportant + ' ' + data.data.isImportant);
+
+          // comprobar checks terminados
+          this.checkForTasks();
+          return;
+        } else {
+          console.log('Else ' + valueTask.isImportant + ' ' + data.data.isImportant);
+          this.presentToast();
+        }
       } else {
         // tslint:disable-next-line: no-shadowed-variable
         const idTask = this.serviceTask.tasks.length + 1;
@@ -70,6 +78,15 @@ export class HomePage implements OnInit {
     }
   }
 
+  async presentToast() {
+    const toast = await this.toastController.create({
+      message: 'No se ha modificado ningún dato.',
+      duration: 2000
+    });
+    toast.present();
+  }
+
+  // comprobar si hay estados terminados para actualizar el titulo de los terminados
   private checkForTasks(): boolean {
     this.withFinishedTasks = this.serviceTask.checkForTasks();
     return this.withFinishedTasks;

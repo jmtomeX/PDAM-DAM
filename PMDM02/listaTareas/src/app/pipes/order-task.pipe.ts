@@ -21,7 +21,6 @@ export class OrderTaskPipe implements PipeTransform {
       return 0;
     });
 
-    console.log(tasksOrder);
     return tasksOrder;
   }
 
