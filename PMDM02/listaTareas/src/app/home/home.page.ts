@@ -17,14 +17,14 @@ export class HomePage implements OnInit {
   withFinishedTasks;
   isUpdateTask = false;
   auxTask: Task;
-  
+
 
   // tslint:disable-next-line: max-line-length
   constructor(public modalCtrl: ModalController, public serviceTask: ServiceTaskService, public router: Router, public toastController: ToastController) {
   }
   ngOnInit() { }
   // justo antes de animar la vista
-  ionViewWillEnter(){}
+  ionViewWillEnter() { }
   // Se ejecuta cuando el componente enrutamiento ha terminado la animación de la nueva vista.
   ionViewDidEnter() {
     this.checkForTasks();
@@ -56,6 +56,7 @@ export class HomePage implements OnInit {
     // datos recogidos
     const { data } = await modal.onWillDismiss();
     if (data) {
+      // si se acualiza
       if (isUpdateTask) {
         console.log(' valueTask ' + JSON.stringify(valueTask));
         // mostrar toast y guargar los datos si hay cambios.
@@ -71,10 +72,14 @@ export class HomePage implements OnInit {
           console.log('Else ' + valueTask.isImportant + ' ' + data.data.isImportant);
           this.presentToast(message);
         }
-      } else {
+      }
+      // si se añade un nuevo elemento
+      else {
         // tslint:disable-next-line: no-shadowed-variable
         const idTask = this.serviceTask.tasks.length + 1;
         this.serviceTask.addTask(new Task(idTask, data.data.description, data.data.isImportant));
+        message = 'Añadida nueva tarea.';
+        this.presentToast(message);
       }
     }
   }
