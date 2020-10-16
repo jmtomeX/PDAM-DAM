@@ -23,10 +23,10 @@ export class ServiceTaskService {
 
   public deleteTask(item: Task) {
     const index: number = this.tasks.findIndex(task => task.id === item.id);
-    // const index = this.searchTask(item);
     this.tasks = [...this.tasks.slice(0, index), ...this.tasks.slice(index + 1)];
   }
 
+  // Se le pasa como parámetros el objeto modificado y el id del objeto a modificar
   public updateTask(item: Task, id) {
     const index: number = this.tasks.findIndex(task => task.id === id);
     const auxTask: Task = this.tasks.find(task => task.id === id);
@@ -35,12 +35,6 @@ export class ServiceTaskService {
     auxTask.description = item.data.description;
     auxTask.isImportant = item.data.isImportant;
     this.tasks = [...this.tasks.slice(0, index), auxTask, ...this.tasks.slice(index + 1)];
-  }
-
-  // función interna para buscar un índice de tarea en el array
-  private searchTask(task): number {
-    const foundTask = this.tasks.indexOf(task);
-    return foundTask;
   }
 
   // función para devolver una tarea por id
@@ -52,16 +46,17 @@ export class ServiceTaskService {
 
   // función para comprobar si hay tareas terminadas
   public checkForTasks(): boolean {
+    // const state: boolean = this.tasks.some(elem => elem.isFinished === true);
     let state;
     let count = 0;
     this.tasks.forEach((entry, index) => {
-      console.log(entry.finished + ' ' + entry.description);
       if (entry.finished) {
-        count = index;
+        count++;
       }
     });
+
     // tslint:disable-next-line: no-unused-expression
-    if (count > 0) { state = true; } else { state = false; }
+    if (count >= 1) { state = true; } else { state = false; }
     return state;
   }
 }
