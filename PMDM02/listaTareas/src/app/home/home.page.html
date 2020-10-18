@@ -18,8 +18,6 @@
           ></ion-checkbox>
         </div>
 
-        <!-- (ionChange)="updateFinished(item)" -->
-
         <!-- Sliding ******************************************************************** -->
         <ion-item-sliding>
           <ion-item>
@@ -56,6 +54,10 @@
     <!-- *****************************************************************************  -->
     <ion-list *ngFor="let item of serviceTask.tasks" lines="none">
       <ion-item *ngIf="item.finished" lines="none">
+        
+        <!-- <ion-list *ngFor="let item of serviceTask.tasks" lines="none">
+      <ion-item *ngIf="(serviceTask | completedTasks).length > 0" lines="none"> -->
+
         <div>
           <ion-checkbox
             [(ngModel)]="item.finished"

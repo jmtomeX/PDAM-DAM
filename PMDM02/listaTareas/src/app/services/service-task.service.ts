@@ -28,10 +28,13 @@ export class ServiceTaskService {
 
   // Se le pasa como parámetros el objeto modificado y el id del objeto a modificar
   public updateTask(item: Task, id) {
+
     const index: number = this.tasks.findIndex(task => task.id === id);
-    const auxTask: Task = this.tasks.find(task => task.id === id);
-    // console.log(' autask ' + JSON.stringify(auxTask));
-    // console.log('item ' + JSON.stringify(item));
+
+    console.log(index);
+    // tslint:disable-next-line: prefer-const
+    let auxTask: Task = this.tasks.find(task => task.id === id);
+
     auxTask.description = item.data.description;
     auxTask.isImportant = item.data.isImportant;
     this.tasks = [...this.tasks.slice(0, index), auxTask, ...this.tasks.slice(index + 1)];
@@ -47,16 +50,12 @@ export class ServiceTaskService {
   // función para comprobar si hay tareas terminadas
   public checkForTasks(): boolean {
     // const state: boolean = this.tasks.some(elem => elem.isFinished === true);
-    let state;
-    let count = 0;
-    this.tasks.forEach((entry, index) => {
-      if (entry.finished) {
-        count++;
-      }
-    });
+    const taskFinished = this.tasks.filter(task => task.finished);
+    const finish = taskFinished.length;
 
-    // tslint:disable-next-line: no-unused-expression
-    if (count >= 1) { state = true; } else { state = false; }
-    return state;
+    if (finish >= 1) {
+      return true;
+    }
+    return false;
   }
 }

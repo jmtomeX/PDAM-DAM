@@ -3,9 +3,8 @@ import { ModalTaskPage } from '../pages/modal-task/modal-task.page';
 import { ModalController, ToastController } from '@ionic/angular';
 import { ServiceTaskService } from '../services/service-task.service';
 import { Task } from '../model/task';
-import { StylesCompileDependency } from '@angular/compiler';
 import { Router } from '@angular/router';
-import { from } from 'rxjs';
+
 
 @Component({
   selector: 'app-home',
@@ -16,8 +15,6 @@ export class HomePage implements OnInit {
   modalupdate;
   withFinishedTasks;
   isUpdateTask = false;
-  auxTask: Task;
-
 
   // tslint:disable-next-line: max-line-length
   constructor(public modalCtrl: ModalController, public serviceTask: ServiceTaskService, public router: Router, public toastController: ToastController) {
@@ -41,7 +38,13 @@ export class HomePage implements OnInit {
   // Nueva función para presentar el modal
   async presentModal(isUpdateTask, idTask?) {
     let message = 'Tarea modificada.';
-    const valueTask = this.serviceTask.getTask(idTask);
+    let valueTask, dataIsImportant;
+
+
+    if (isUpdateTask) {
+      valueTask = this.serviceTask.getTask(idTask);
+      dataIsImportant = valueTask.isImportant;
+    }
 
     const modal = await this.modalCtrl.create({
       component: ModalTaskPage,
@@ -51,17 +54,16 @@ export class HomePage implements OnInit {
       },
     });
     // variable para recoger el estado anterior al envio de la data al modal
-    const dataIsIportant: boolean = valueTask.isImportant;
     await modal.present();
     // datos recogidos
     const { data } = await modal.onWillDismiss();
     if (data) {
-      // si se acualiza
+      // si se actualiza
       if (isUpdateTask) {
         console.log(' valueTask ' + JSON.stringify(valueTask));
         // mostrar toast y guargar los datos si hay cambios.
         if (valueTask.description !== data.data.description ||
-          dataIsIportant !== data.data.isImportant) {
+          dataIsImportant !== data.data.isImportant) {
           this.serviceTask.updateTask(data, idTask);
           // comprobar checks terminados
           this.checkForTasks();
@@ -95,6 +97,8 @@ export class HomePage implements OnInit {
   // comprobar si hay estados terminados para actualizar el titulo de los terminados
   private checkForTasks(): boolean {
     this.withFinishedTasks = this.serviceTask.checkForTasks();
+    console.log(this.withFinishedTasks);
+    
     return this.withFinishedTasks;
   }
 }

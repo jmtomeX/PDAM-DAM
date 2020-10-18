@@ -4,6 +4,7 @@ import { IonicModule } from '@ionic/angular';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HomePage } from './home.page';
 import { OrderTaskPipe } from '../pipes/order-task.pipe';
+import { CompletedTasksPipe } from '../pipes/completed-tasks.pipe';
 import { HomePageRoutingModule } from './home-routing.module';
 
 
@@ -15,6 +16,6 @@ import { HomePageRoutingModule } from './home-routing.module';
     HomePageRoutingModule,
     FormsModule, ReactiveFormsModule
   ],
-  declarations: [HomePage, OrderTaskPipe]
+  declarations: [HomePage, OrderTaskPipe, CompletedTasksPipe]
 })
 export class HomePageModule { }

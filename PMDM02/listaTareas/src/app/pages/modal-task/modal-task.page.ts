@@ -21,13 +21,13 @@ export class ModalTaskPage implements OnInit {
   // tslint:disable-next-line: max-line-length
   constructor(public formBuilder: FormBuilder, public modalCtrl: ModalController, private activatedRoute: ActivatedRoute) {
     this.formTask = formBuilder.group({
-      description: ['',
-        Validators.compose([
-          Validators.maxLength(30),
-          Validators.minLength(2),
-          Validators.required
-        ]
-        )],
+      description: [this.isUpdateTask ? this.data.description : '',
+      Validators.compose([
+        Validators.maxLength(30),
+        Validators.minLength(2),
+        Validators.required
+      ]
+      )],
       isImportant: (['',
         Validators.compose([])
       ])

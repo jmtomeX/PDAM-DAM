@@ -9,6 +9,8 @@ export class OrderTaskPipe implements PipeTransform {
 
     let tasksOrder: Task[];
 
+    // Filtra antes de ordenar si está acabado.
+    // tasksOrder = value.filter(task => !task.finished).sort((a) => {
     tasksOrder = value.sort((a) => {
       // tslint:disable-next-line: triple-equals
       if (a.isImportant == false) {
