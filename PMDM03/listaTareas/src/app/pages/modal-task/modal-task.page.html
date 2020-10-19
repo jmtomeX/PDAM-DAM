@@ -1,0 +1,66 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title class="font-main">{{title}}</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="exitModal()"
+        ><ion-icon name="power-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <form [formGroup]="formTask" (ngSubmit)="sendTask(formTask.value)">
+    <ion-item>
+      <ion-label position="floating" color="medium">Tarea o producto</ion-label>
+
+
+      <ion-input
+      formControlName="description"
+      clearInput="true"
+      type="text"
+      class="ion-text-center"
+      *ngIf="!data"
+    ></ion-input>
+      
+
+      <ion-input
+        formControlName="description"
+        clearInput="true"
+        type="text"
+        class="ion-text-center"
+        [ngModel]="data.description"
+        *ngIf="data"
+      ></ion-input>
+    </ion-item>
+
+    <ion-item class="ion-margin-bottom" lines="none">
+      <ion-checkbox
+        *ngIf="!data"
+        formControlName="isImportant"
+        color="primary"
+        [(ngModel)]="formTask.isChecked "
+        events="ionChange"
+      ></ion-checkbox>
+
+      <ion-checkbox
+        *ngIf="data"
+        formControlName="isImportant"
+        color="primary"
+        [(ngModel)]="data.isImportant "
+        events="ionChange"
+      ></ion-checkbox>
+
+      <ion-title class="font-main" color="primary">Es importante</ion-title>
+    </ion-item>
+
+    <ion-button
+      color="primary"
+      expand="block"
+      type="submit"
+      vertical="bottom"
+      [disabled]="!formTask.valid"
+      >{{actionSend}}</ion-button
+    >
+  </form>
+</ion-content>

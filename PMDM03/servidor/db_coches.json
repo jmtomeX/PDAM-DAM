@@ -1,0 +1,53 @@
+{
+  "coches": [
+    {
+      "id": 1,
+      "itv": true,
+      "marca": "opel",
+      "matricula": "4444-ttt",
+      "modelo": "astra",
+      "puertas": "3"
+    },
+    {
+      "id": 2,
+      "itv": true,
+      "marca": "opel",
+      "matricula": "4444-ttt",
+      "modelo": "astra",
+      "puertas": "3"
+    },
+    {
+      "id": 3,
+      "itv": true,
+      "marca": "opel",
+      "matricula": "4444-ttt",
+      "modelo": "astra",
+      "puertas": "3"
+    },
+    {
+      "id": 4,
+      "itv": true,
+      "marca": "seat",
+      "matricula": "4444-ttt",
+      "modelo": "leon",
+      "puertas": "3"
+    },
+    {
+      "id": 5,
+      "itv": true,
+      "marca": "opel",
+      "matricula": "4444-ttt",
+      "modelo": "astra",
+      "puertas": "3"
+    },
+    {
+      "id": 6,
+      "itv": true,
+      "marca": "opel",
+      "matricula": "4444-ttt",
+      "modelo": "astra",
+      "puertas": "3"
+    }
+    
+  ]
+}
