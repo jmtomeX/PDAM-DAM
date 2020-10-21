@@ -16,7 +16,7 @@ export class HomePage {
   constructor(public servicio: ServicioPersonasService, public modalCtrl: ModalController, public router: Router) { }
 
   async addPersona() {
-    // this.servicio.addPersona(new Persona('Prueba desde ', 'servicio'));
+    this.servicio.addPersona(new Persona('Prueba desde ', 'servicio'));
     // lanzar modal
     const modal = await this.modalCtrl.create({
       // modal vacia
@@ -29,9 +29,14 @@ export class HomePage {
 
     // Añadir persona
     if (data) {
-      const idPerson = this.servicio.personas.length + 1;
-      console.log(idPerson);
-      this.servicio.addPersona(new Persona(data.data.nombre, data.data.apellido, idPerson));
+      // let idPerson = 0;
+      // if (this.servicio.personas == undefined) {
+      //   idPerson = 1;
+      // } else {
+      //   idPerson = this.servicio.personas.length + 1;
+      // }
+      // console.log(idPerson);
+      this.servicio.addPersona(new Persona(data.data.nombre, data.data.apellido));
     }
   }
 
@@ -42,13 +47,13 @@ export class HomePage {
   public navegar(id) {
     this.router.navigate(['/detalle-persona/' + id]);
   }
-    public aplicarStilosPersona(persona: Persona){
+  public aplicarStilosPersona(persona: Persona) {
     const styles = {
       color: persona.nombre.startsWith('A') ? 'red' : 'Blue',
     };
     return styles;
   }
-  public log(){
+  public log() {
     console.log('click');
   }
 }
