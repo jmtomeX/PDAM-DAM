@@ -16,7 +16,7 @@ export class HomePage {
   constructor(public servicio: ServicioPersonasService, public modalCtrl: ModalController, public router: Router) { }
 
   async addPersona() {
-    // this.servicio.addPersona(new Persona('Prueba desde ', 'servicio'));
+    this.servicio.addPersona(new Persona('Prueba desde ', 'servicio'));
     // lanzar modal
     const modal = await this.modalCtrl.create({
       // modal vacia

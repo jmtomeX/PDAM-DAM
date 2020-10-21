@@ -11,14 +11,20 @@ export class Persona {
     }
     public static personas = 0;
 
-    // public static fromJson(data): Persona {
-    //     const newData = JSON.parse(data);
-    //     return newData;
-    // }
+    public static fromJson(data): Persona {
+        if (data.nombre && data.apellido && data.id) {
+            return new Persona(data.nombre, data.apellido, data.id);
+        }
+        try {
+            throw new TypeError('Faltan campos por recibir.');
+        }
+        catch (e) {
+            console.log(( e as Error).message);
+        }
 
-
-    clonar(persona): Persona {
-        return new Persona(persona.id, persona.nombre, persona.apellido);
     }
 
+    clonar(persona): Persona {
+        return new Persona(persona.nombre, persona.apellido, persona.id);
+    }
 }

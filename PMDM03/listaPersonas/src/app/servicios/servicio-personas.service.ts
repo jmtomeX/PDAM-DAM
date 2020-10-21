@@ -27,7 +27,7 @@ export class ServicioPersonasService {
       datos => {
         console.log(datos);
         // map aplica una función
-       // datos.map((persona) => Persona.fromJson(persona));
+       datos.map((persona) => Persona.fromJson(persona));
         this.personas = datos;
       },
       (error) => console.log(error)
