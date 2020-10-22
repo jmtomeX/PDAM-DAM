@@ -1,9 +1,10 @@
-import { Injectable } from '@angular/core';
+import { Injectable, OnInit } from '@angular/core';
 import { Persona } from '../modelo/persona';
 import { HttpServiceService } from './http-services-service';
 import { StorageServiceService } from './storage-service.service';
 import { Observable, throwError } from 'rxjs';
 import { retry, catchError } from 'rxjs/operators';
+import { LoadingController } from '@ionic/angular';
 
 
 @Injectable({
@@ -12,27 +13,16 @@ import { retry, catchError } from 'rxjs/operators';
 export class ServicioPersonasService {
 
   personas: Persona[];
-
+  loading: any;
   constructor(
     private servicioStorage: StorageServiceService,
-    private servicioHttp: HttpServiceService
+    private servicioHttp: HttpServiceService,
+    private loadingController: LoadingController
   ) {
-    // this.personas.length = Persona.personas;14
+    // this.personas.length = Persona.personas;
     // this.personas = [
     //   new Persona('Jose', 'Peter')
     // ];
-
-    // cargar datos desde el servidor
-    this.servicioHttp.getList().subscribe(
-      datos => {
-        console.log(datos);
-        // map aplica una función
-        // tslint:disable-next-line: align
-        datos.map((persona) => Persona.fromJson(persona));
-        this.personas = datos;
-      },
-      (error) => console.log(error)
-    );
 
     // cargar datos si hay del storage
     // this.servicioStorage.getObject('personas')
@@ -43,6 +33,44 @@ export class ServicioPersonasService {
     //     }
     //   });
 
+    // al ser los constructores asincronos hay que utilizar then, no async await.
+    // hay algo en el storage
+    this.servicioStorage.getObject('personas')
+      .then((data) => {
+        // hay que castear a persona porque devuelve tipo any
+        //  if (data) { this.personas = <Persona[]> <unknown> data; }
+        if (data) { this.personas = (data as unknown as Persona[]); }
+
+      });
+
+
+    this.presentLoading().then(() => {
+      // cargar datos desde el servidor
+      this.servicioHttp.getList().subscribe(
+        datos => {
+          console.log(datos);
+          // map aplica una función
+          // tslint:disable-next-line: align
+          datos.map((persona) => Persona.fromJson(persona));
+          this.personas = datos;
+        },
+        (error) => console.log(error)
+      );
+    });
+
+
+  }
+
+  async presentLoading() {
+    const loading = await this.loadingController.create({
+
+      message: 'Cargando datos...',
+      duration: 3000
+    });
+    await loading.present();
+
+    const { role, data } = await loading.onDidDismiss();
+    console.log('Loading dismissed!');
   }
 
   public addPersona(item: Persona) {
