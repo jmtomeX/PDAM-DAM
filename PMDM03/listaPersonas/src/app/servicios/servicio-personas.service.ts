@@ -27,13 +27,14 @@ export class ServicioPersonasService {
       datos => {
         console.log(datos);
         // map aplica una función
-       datos.map((persona) => Persona.fromJson(persona));
+        // tslint:disable-next-line: align
+        datos.map((persona) => Persona.fromJson(persona));
         this.personas = datos;
       },
       (error) => console.log(error)
     );
 
-    // cargar datos si hay en   del storage
+    // cargar datos si hay del storage
     // this.servicioStorage.getObject('personas')
     //   .then((data) => {
     //     if (data) {
@@ -46,7 +47,15 @@ export class ServicioPersonasService {
 
   public addPersona(item: Persona) {
     this.personas = [...this.personas, item];
-    this.servicioStorage.setObject('personas', this.personas);
+    this.servicioHttp.createItem(item).subscribe((data) => {
+      console.log(data);
+    },
+      (error) => {
+        console.log(error);
+
+      }
+    );
+    // this.servicioStorage.setObject('personas', this.personas);
   }
 
   public getPersona(id): Persona {
@@ -59,7 +68,8 @@ export class ServicioPersonasService {
     // recoger la posición del array
     const index = this.personas.indexOf(item);
     // dividir el array en inicio y fin
-    this.personas = [...this.personas.slice(0, index), ...this.personas.slice(index + 1)];
-    this.servicioStorage.setObject('personas', this.personas);
+    // this.personas = [...this.personas.slice(0, index), ...this.personas.slice(index + 1)];
+    // this.servicioHttp.deleteItem(item).subscribe();
+    // this.servicioStorage.setObject('personas', this.personas);
   }
 }

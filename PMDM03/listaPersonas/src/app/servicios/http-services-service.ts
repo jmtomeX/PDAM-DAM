@@ -25,7 +25,6 @@ export class HttpServiceService {
 
     // Handle API errors Gestión de errores
     handleError(error: HttpErrorResponse) {
-  
 
         if (error.error instanceof ErrorEvent) {
             // A client-side or network error occurred. Handle it accordingly.
@@ -45,9 +44,15 @@ export class HttpServiceService {
     }
 
     createItem(item): Observable<Persona> {
-        console.log(item);
+        const datos = `
+        {
+        "nombre":"${item.nombre}",
+        "apellido":"${item.apellido}"
+        }`;
         return this.http
-            .post<Persona>(this.BASE_PATH, JSON.stringify(item), this.httpOptions)
+            // .post<Persona>(this.BASE_PATH, JSON.stringify(item), this.httpOptions)
+            // para quitar el id y que se encargue el servidor
+            .post<Persona>(this.BASE_PATH, datos, this.httpOptions)
             .pipe(retry(2), catchError(this.handleError));
     }
 

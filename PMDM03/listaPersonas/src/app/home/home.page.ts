@@ -45,6 +45,7 @@ export class HomePage {
   }
 
   public navegar(id) {
+    console.log('Id para ver ' + id);
     this.router.navigate(['/detalle-persona/' + id]);
   }
   public aplicarStilosPersona(persona: Persona) {
