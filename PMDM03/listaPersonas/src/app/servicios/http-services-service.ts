@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { retry, catchError } from 'rxjs/operators';
+import { AppSettings } from '../config/app-config';
 // Se importan las clases del modelo necesarias para utilizar en la llamadas <T>
 // Incluir la clase no asegura ningun tipo de comprobacion. Si se quiere realizar
 // comprobacion de los campos de debe realizar
@@ -14,7 +15,8 @@ import { Persona } from '../modelo/persona';
 })
 export class HttpServiceService {
     // url base. Se puede incluir en un fichero de configuración
-    BASE_PATH = 'http://localhost:3000/person';
+    // BASE_PATH = 'http://localhost:3000/person';
+    BASE_PATH = `${AppSettings.API_ENDPOINT}/person/`;
     constructor(private http: HttpClient) { }
 
     httpOptions = {

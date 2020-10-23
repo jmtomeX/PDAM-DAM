@@ -34,7 +34,7 @@ export class ServicioPersonasService {
     //   });
 
     // al ser los constructores asincronos hay que utilizar then, no async await.
-    // hay algo en el storage
+    // CArgar el storage si hay algo
     this.servicioStorage.getObject('personas')
       .then((data) => {
         // hay que castear a persona porque devuelve tipo any
@@ -53,6 +53,8 @@ export class ServicioPersonasService {
           // tslint:disable-next-line: align
           datos.map((persona) => Persona.fromJson(persona));
           this.personas = datos;
+          // cargar el storage al obtener la base de datos
+          this.servicioStorage.setObject('personas', this.personas);
         },
         (error) => console.log(error)
       );
@@ -74,9 +76,25 @@ export class ServicioPersonasService {
   }
 
   public addPersona(item: Persona) {
-    this.personas = [...this.personas, item];
     this.servicioHttp.createItem(item).subscribe((data) => {
-      console.log(data);
+      // console.log(data);
+      this.servicioStorage.setObject('personas', this.personas)
+        .then(() => {
+          // añadir persona al array
+          this.personas = [...this.personas, item];
+        })
+        .catch((error) => {
+          // opción 1
+          // el storage no es importante y actualizo this.personas
+          // this.personas = [...this.personas, item];
+
+          // opción 2
+          // el storage si que es importante
+          // eliminar el item que se ha creado y no se actualiza personas
+          // this.servicioHttp.deleteItem(item.id); // <-- el id no está aquí está en data
+          this.servicioHttp.deleteItem(data.id);
+
+        });
     },
       (error) => {
         console.log(error);
@@ -96,8 +114,13 @@ export class ServicioPersonasService {
     // recoger la posición del array
     const index = this.personas.indexOf(item);
     // dividir el array en inicio y fin
-    // this.personas = [...this.personas.slice(0, index), ...this.personas.slice(index + 1)];
-    // this.servicioHttp.deleteItem(item).subscribe();
-    // this.servicioStorage.setObject('personas', this.personas);
+    this.personas = [...this.personas.slice(0, index), ...this.personas.slice(index + 1)];
+
+    // eliminamos de la base de datos
+    this.servicioHttp.deleteItem(item.id).subscribe();
+
+    // pasamos a string para eliminar del storage
+    const itemString = JSON.stringify(item);
+    this.servicioStorage.removeItem(itemString);
   }
 }
