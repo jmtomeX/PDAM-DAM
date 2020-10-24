@@ -12,6 +12,21 @@ export class Task {
         public finished: boolean = false
     ) { }
 
+    public static fromJson(data): Task {
+        try {
+            if (data.descrition &&
+                data.isImportant &&
+                data.finished &&
+                data.id) {
+                return new Task(data.id, data.description, data.isImportant, data.finished);
+            }
+            throw new TypeError('Faltan datos por recibir.');
+        }
+        catch (e) {
+            console.log((e as Error).message);
+        }
+    }
+
     public static cloneTask(itemTask: Task): Task {
         return new Task(itemTask.id, itemTask.description, itemTask.isImportant, itemTask.finished);
     }

@@ -1,6 +1,10 @@
 import { Injectable } from '@angular/core';
 import { from } from 'rxjs';
 import { Task } from '../model/task';
+import { HttpServiceService } from './http.service';
+import { StorageServiceService } from './storage.service';
+import { LoadingController } from '@ionic/angular';
+
 
 @Injectable({
   providedIn: 'root'
@@ -8,13 +12,35 @@ import { Task } from '../model/task';
 export class ServiceTaskService {
   tasks: Task[];
   task;
-  constructor() {
-    this.tasks = [
-      new Task(1, 'Galletas'),
-      new Task(2, 'Itv', true, true),
-      new Task(3, 'Azúcar', true, true),
-      new Task(4, 'Pan')
-    ];
+  constructor(
+    private servicioStorage: StorageServiceService,
+    private servicioHttp: HttpServiceService,
+    private loadingController: LoadingController
+  ) {
+    // Si hay datos en el storage se cargan
+    this.servicioStorage.getObject('tareas')
+      .then((data) => {
+        // casteamos a tipo Task
+        if (data) {
+          this.tasks = (data as unknown as Task[]);
+        }
+      });
+
+    // cargar datos desde el servidor retardando la carga
+    this.presentLoading().then(() => {
+      this.servicioHttp.getList().subscribe(
+        (datos) => {
+          console.log(datos);
+          // comprobamos que llegan todos los datos de cada tarea
+          datos.map((task) => Task.fromJson(task));
+          this.tasks = datos;
+          // cargamos la base de datos en el storage
+          this.servicioStorage.setObject('tareas', this.tasks);
+        },
+        (error) => console.log(error)
+      );
+    });
+
   }
 
   public addTask(item: Task) {
@@ -45,6 +71,19 @@ export class ServiceTaskService {
     // tslint:disable-next-line: triple-equals
     const task = this.tasks.find(taskFind => taskFind.id == id);
     return task;
+  }
+
+  // mostrar el loading
+  async presentLoading() {
+    const loading = await this.loadingController.create({
+
+      message: 'Cargando datos...',
+      duration: 3000
+    });
+    await loading.present();
+
+    const { role, data } = await loading.onDidDismiss();
+    console.log('Loading dismissed!');
   }
 
   // función para comprobar si hay tareas terminadas

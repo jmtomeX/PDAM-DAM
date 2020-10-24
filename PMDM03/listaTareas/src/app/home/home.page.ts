@@ -38,7 +38,8 @@ export class HomePage implements OnInit {
   // Nueva función para presentar el modal
   async presentModal(isUpdateTask, idTask?) {
     let message = 'Tarea modificada.';
-    let valueTask, dataIsImportant;
+    let valueTask;
+    let dataIsImportant;
 
 
     if (isUpdateTask) {
@@ -98,7 +99,7 @@ export class HomePage implements OnInit {
   private checkForTasks(): boolean {
     this.withFinishedTasks = this.serviceTask.checkForTasks();
     console.log(this.withFinishedTasks);
-    
+
     return this.withFinishedTasks;
   }
 }
