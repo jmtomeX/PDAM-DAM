@@ -14,40 +14,20 @@
     <ion-item>
       <ion-label position="floating" color="medium">Tarea o producto</ion-label>
 
-
-      <ion-input
-      formControlName="description"
-      clearInput="true"
-      type="text"
-      class="ion-text-center"
-      *ngIf="!data"
-    ></ion-input>
-      
-
       <ion-input
         formControlName="description"
         clearInput="true"
         type="text"
         class="ion-text-center"
-        [ngModel]="data.description"
-        *ngIf="data"
+        [ngModel]="formTask.description"
       ></ion-input>
     </ion-item>
 
     <ion-item class="ion-margin-bottom" lines="none">
       <ion-checkbox
-        *ngIf="!data"
         formControlName="isImportant"
         color="primary"
-        [(ngModel)]="formTask.isChecked "
-        events="ionChange"
-      ></ion-checkbox>
-
-      <ion-checkbox
-        *ngIf="data"
-        formControlName="isImportant"
-        color="primary"
-        [(ngModel)]="data.isImportant "
+        [(ngModel)]="formTask.isImportant"
         events="ionChange"
       ></ion-checkbox>
 

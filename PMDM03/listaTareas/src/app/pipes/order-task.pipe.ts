@@ -1,4 +1,5 @@
 import { Pipe, PipeTransform } from '@angular/core';
+import { finished } from 'stream';
 import { Task } from '../model/task';
 @Pipe({
   name: 'orderTask'
@@ -10,8 +11,7 @@ export class OrderTaskPipe implements PipeTransform {
     let tasksOrder: Task[];
 
     // Filtra antes de ordenar si está acabado.
-    // tasksOrder = value.filter(task => !task.finished).sort((a) => {
-    tasksOrder = value.sort((a) => {
+    tasksOrder = value.filter(x => !x.finished).sort((a) => {
       // tslint:disable-next-line: triple-equals
       if (a.isImportant == false) {
         return 1;

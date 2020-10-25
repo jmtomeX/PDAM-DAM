@@ -28,8 +28,8 @@ export class ModalTaskPage implements OnInit {
         Validators.required
       ]
       )],
-      isImportant: (['',
-        Validators.compose([])
+      isImportant: ([this.isUpdateTask ? this.data.isImportant : false,
+      Validators.compose([])
       ])
     });
 

@@ -12,19 +12,29 @@ export class Task {
         public finished: boolean = false
     ) { }
 
-    public static fromJson(data): Task {
-        try {
-            if (data.descrition &&
-                data.isImportant &&
-                data.finished &&
-                data.id) {
-                return new Task(data.id, data.description, data.isImportant, data.finished);
-            }
-            throw new TypeError('Faltan datos por recibir.');
+    // public static fromJson(data): Task {
+    //     try {
+    //         if (data.descrition &&
+    //             data.isImportant &&
+    //             data.finished &&
+    //             data.id) {
+    //             return new Task(data.id, data.description, data.isImportant, data.finished);
+    //         }
+    //         throw new TypeError('Argumento no válido: la estructura del argumento no coincide con los campos del modelo.');
+    //     }
+    //     catch (e) {
+    //         console.log((e as Error).message);
+    //     }
+    // }
+
+        public static fromJson(data): any {
+        if (data.descrition &&
+            data.isImportant &&
+            data.finished &&
+            data.id) {
+            return new Task(data.id, data.description, data.isImportant, data.finished);
         }
-        catch (e) {
-            console.log((e as Error).message);
-        }
+        throw (new Error('Argumento no válido: la estructura del argumento no coincide con los campos del modelo'));
     }
 
     public static cloneTask(itemTask: Task): Task {

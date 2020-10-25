@@ -19,12 +19,13 @@ export class HomePage implements OnInit {
   // tslint:disable-next-line: max-line-length
   constructor(public modalCtrl: ModalController, public serviceTask: ServiceTaskService, public router: Router, public toastController: ToastController) {
   }
-  ngOnInit() { }
+  ngOnInit() {
+    this.checkForTasks();
+  }
   // justo antes de animar la vista
   ionViewWillEnter() { }
   // Se ejecuta cuando el componente enrutamiento ha terminado la animación de la nueva vista.
   ionViewDidEnter() {
-    this.checkForTasks();
   }
 
   public updateFinished(item: Task) {

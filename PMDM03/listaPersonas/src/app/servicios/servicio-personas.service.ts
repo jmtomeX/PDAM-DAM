@@ -65,7 +65,6 @@ export class ServicioPersonasService {
 
   async presentLoading() {
     const loading = await this.loadingController.create({
-
       message: 'Cargando datos...',
       duration: 3000
     });
