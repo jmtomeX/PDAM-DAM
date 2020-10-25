@@ -79,9 +79,7 @@ export class HomePage implements OnInit {
       }
       // si se añade un nuevo elemento
       else {
-        // tslint:disable-next-line: no-shadowed-variable
-        const idTask = this.serviceTask.tasks.length + 1;
-        this.serviceTask.addTask(new Task(idTask, data.data.description, data.data.isImportant));
+        this.serviceTask.addTask(new Task(data.data.description, data.data.isImportant));
         message = 'Añadida nueva tarea.';
         this.presentToast(message);
       }
