@@ -21,16 +21,12 @@ export class HomePage implements OnInit {
   constructor(public modalCtrl: ModalController, public serviceTask: ServiceTaskService, public router: Router, public toastController: ToastController) {
   }
   ngOnInit() {
-    this.checkForTasks();
+ 
   }
   // justo antes de animar la vista
   ionViewWillEnter() { }
   // Se ejecuta cuando el componente enrutamiento ha terminado la animación de la nueva vista.
   ionViewDidEnter() {
-  }
-
-  public updateFinished(item: Task) {
-    this.checkForTasks();
   }
 
   public deleteTask(item) {
@@ -69,7 +65,7 @@ export class HomePage implements OnInit {
           dataIsImportant !== data.data.isImportant) {
           this.serviceTask.updateTask(data, idTask);
           // comprobar checks terminados
-          this.checkForTasks();
+
           this.presentToast(message);
         } else {
           // mensaje para el toast.
@@ -80,7 +76,7 @@ export class HomePage implements OnInit {
       }
       // si se añade un nuevo elemento
       else {
-        this.serviceTask.addTask(new Task(data.data.description, data.data.isImportant));
+        this.serviceTask.addTask(new Task( data.data.id, data.data.description, data.data.isImportant, data.data.finished));
         message = 'Añadida nueva tarea.';
         this.presentToast(message);
       }
@@ -95,12 +91,5 @@ export class HomePage implements OnInit {
     toast.present();
   }
 
-  // comprobar si hay estados terminados para actualizar el titulo de los terminados
-  private checkForTasks(): boolean {
-    this.withFinishedTasks = this.serviceTask.checkForTasks();
-    console.log(this.withFinishedTasks);
-
-    return this.withFinishedTasks;
-  }
 }
 

@@ -121,14 +121,4 @@ export class ServiceTaskService {
     console.log('Loading dismissed!');
   }
 
-  // función para comprobar si hay tareas terminadas
-  public checkForTasks(): boolean {
-    const taskFinished = this.tasks.filter(task => task.finished);
-    const finish = taskFinished.length;
-
-    if (finish >= 1) {
-      return true;
-    }
-    return false;
-  }
 }
