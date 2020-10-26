@@ -11,7 +11,7 @@ import { newArray } from '@angular/compiler/src/util';
   providedIn: 'root'
 })
 export class ServiceTaskService {
-  tasks: Task[];
+  tasks: Task[] = [];
   task;
   constructor(
     private servicioStorage: StorageServiceService,
