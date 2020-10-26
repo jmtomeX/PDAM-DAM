@@ -4,6 +4,7 @@ import { Task } from '../model/task';
 import { HttpServiceService } from './http.service';
 import { StorageServiceService } from './storage.service';
 import { LoadingController } from '@ionic/angular';
+import { newArray } from '@angular/compiler/src/util';
 
 
 @Injectable({
@@ -27,16 +28,16 @@ export class ServiceTaskService {
         }
       });
 
-
-
     // cargar datos desde el servidor retardando la carga
     this.presentLoading().then(() => {
       this.servicioHttp.getList().subscribe(
         (datos) => {
-          console.log(datos);
           // comprobamos que llegan todos los datos de cada tarea
-          datos.map((task) => Task.fromJson(task));
-          this.tasks = datos;
+          const map = datos.map((task) => Task.fromJson(task));
+          // no añadimos si algún elemento viene como undefined
+          const keys = Object.values(map).filter(x => x !== undefined);
+
+          this.tasks = keys;
           // cargamos la base de datos en el storage
           this.servicioStorage.setObject('tareas', this.tasks);
         },

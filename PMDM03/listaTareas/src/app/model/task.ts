@@ -16,7 +16,9 @@ export class Task {
     public static fromJson(data): any {
         try {
             if (data.id && data.description && typeof (data.isImportant) !== 'undefined' && typeof (data.finished) !== 'undefined') {
-                return new Task(data.id, data.description, data.isImportant, data.finished);
+                if (!null || !undefined) {
+                    return new Task(data.id, data.description, data.isImportant, data.finished);
+                }
             }
             throw (new Error('Argumento no válido: la estructura del argumento no coincide con los campos del modelo'));
         } catch (e) {

@@ -2,7 +2,8 @@ import { NullTemplateVisitor } from '@angular/compiler';
 
 export class Persona {
 
-   //  private static personas = 0;
+    public static totalPersonas = 0;
+
     constructor(
         public nombre: string,
         public apellido: string,
@@ -29,5 +30,13 @@ export class Persona {
 
     clonar(persona): Persona {
         return new Persona(persona.nombre, persona.apellido, persona.id);
+    }
+
+    public Persona() {
+        Persona.totalPersonas++;
+    }
+
+    public getTotal(): number {
+        return Persona.totalPersonas;
     }
 }
