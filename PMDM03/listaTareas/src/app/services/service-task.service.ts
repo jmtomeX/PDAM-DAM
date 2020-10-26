@@ -67,7 +67,7 @@ export class ServiceTaskService {
     // eliminar item del array
     const index: number = this.tasks.findIndex(task => task.id === item.id);
     this.tasks = [...this.tasks.slice(0, index), ...this.tasks.slice(index + 1)];
-    
+
     // eliminar item de la bbdd
     this.servicioHttp.deleteItem(item.id).subscribe();
 
