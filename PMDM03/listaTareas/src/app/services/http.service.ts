@@ -49,7 +49,8 @@ export class HttpServiceService {
         const datos = `
         {
         "description":"${item.description}",
-        "isImportant":"${item.isImportant}"
+        "isImportant":"${item.isImportant}",
+        "finished":"${item.finished}"
         }`;
         return this.http
             // .post<Task>(this.BASE_PATH, JSON.stringify(item), this.httpOptions)
