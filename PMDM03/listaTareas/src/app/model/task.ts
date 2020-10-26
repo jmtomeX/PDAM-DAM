@@ -13,7 +13,7 @@ export class Task {
     ) { }
 
     public static fromJson(data): any {
-        if (!data.description || !data.isImportant || !data.finished) {
+        if (!data.id || !data.description || typeof data.isImportant !== 'boolean' || typeof data.finished !== 'boolean') {
             throw (new Error('Argumento no válido: la estructura del argumento no coincide con los campos del modelo'));
         }
         return new Task(data.id, data.description, data.isImportant, data.finished);
