@@ -9,11 +9,7 @@ export class CompletedTasksPipe implements PipeTransform {
 
     // tslint:disable-next-line: prefer-const
     const taskFinished = value.filter(task => task.finished);
-    console.log('Pipe acabados totales ' + taskFinished.length);
-    if (taskFinished.length >= 1) {
-      return true;
-    }
-    return false;
+    return taskFinished;
   }
 
 }
