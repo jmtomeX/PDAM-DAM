@@ -14,14 +14,14 @@ import { Router } from '@angular/router';
 })
 export class HomePage implements OnInit {
   modalupdate;
-  withFinishedTasks;
+  withFinishedTask;
   isUpdateTask = false;
 
   // tslint:disable-next-line: max-line-length
   constructor(public modalCtrl: ModalController, public serviceTask: ServiceTaskService, public router: Router, public toastController: ToastController) {
   }
   ngOnInit() {
- 
+
   }
   // justo antes de animar la vista
   ionViewWillEnter() { }
@@ -39,9 +39,9 @@ export class HomePage implements OnInit {
     let valueTask;
     let dataIsImportant;
 
-
     if (isUpdateTask) {
       valueTask = this.serviceTask.getTask(idTask);
+      console.log('Home if update ' + JSON.stringify(valueTask));
       dataIsImportant = valueTask.isImportant;
     }
 
@@ -75,7 +75,7 @@ export class HomePage implements OnInit {
       }
       // si se añade un nuevo elemento
       else {
-        this.serviceTask.addTask(new Task( data.data.id, data.data.description, data.data.isImportant, data.data.finished));
+        this.serviceTask.addTask(new Task(data.data.id, data.data.description, data.data.isImportant, data.data.finished));
         message = 'Añadida nueva tarea.';
         this.presentToast(message);
       }
@@ -88,6 +88,14 @@ export class HomePage implements OnInit {
       duration: 2000
     });
     toast.present();
+  }
+
+  onChange($event, id) {
+    console.log('Cambio chek ' + $event.target.value);
+    // Falta recoger el valor del check para enviarlo
+    const valueTask = this.serviceTask.getTask(id);
+
+    this.serviceTask.updateTask(valueTask, id);
   }
 
 }

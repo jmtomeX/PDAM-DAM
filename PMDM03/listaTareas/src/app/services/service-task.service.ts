@@ -61,7 +61,6 @@ export class ServiceTaskService {
           this.servicioHttp.deleteItem(data.id); // al item no se le ha dado un id, lo da el servidor
         });
     });
-
   }
 
   public deleteTask(item: Task) {
@@ -95,7 +94,6 @@ export class ServiceTaskService {
           // Actualizar el array
           // tslint:disable-next-line: prefer-const
           this.tasks = [...this.tasks.slice(0, index), auxTask, ...this.tasks.slice(index + 1)];
-          
         })
         .catch((error) => {
           // el storage no es importante y actualiza el array

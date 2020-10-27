@@ -19,7 +19,7 @@ export class ModalTaskPage implements OnInit {
 
   // tslint:disable-next-line: max-line-length
   constructor(public formBuilder: FormBuilder, public modalCtrl: ModalController, private activatedRoute: ActivatedRoute) {
-    console.log(this.data);
+    console.log('datos en el modal ' + JSON.stringify(this.data) + ' ' + this.isUpdateTask );
     this.formTask = formBuilder.group({
       description: [this.isUpdateTask ? this.data.description : '',
       Validators.compose([
@@ -32,7 +32,6 @@ export class ModalTaskPage implements OnInit {
       Validators.compose([])
       ])
     });
-
   }
 
   ngOnInit() {

@@ -13,8 +13,8 @@
       <ion-item lines="none">
         <div>
           <ion-checkbox
-            [(ngModel)]="item.finished"
-            ionChange="onChange($event)"
+            [ngModel]="item.finished"
+            (ionChange)="onChange($event, item.id)"
           ></ion-checkbox>
         </div>
 
