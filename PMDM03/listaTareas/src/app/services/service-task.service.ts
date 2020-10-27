@@ -86,7 +86,7 @@ export class ServiceTaskService {
     auxTask.description = item.data.description;
     auxTask.isImportant = item.data.isImportant;
     // Actualizar la bbdd
-    this.servicioHttp.updateItem(id, item).subscribe((data) => {
+    this.servicioHttp.updateItem(id, auxTask).subscribe((data) => {
       // Actualizar el array
       // tslint:disable-next-line: prefer-const
       this.tasks = [...this.tasks.slice(0, index), auxTask, ...this.tasks.slice(index + 1)];
