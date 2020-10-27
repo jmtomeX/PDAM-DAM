@@ -15,11 +15,11 @@ export class ModalTaskPage implements OnInit {
   @Input() isUpdateTask: boolean;
   @Input() data: Task;
 
-
   formTask;
 
   // tslint:disable-next-line: max-line-length
   constructor(public formBuilder: FormBuilder, public modalCtrl: ModalController, private activatedRoute: ActivatedRoute) {
+    console.log(this.data);
     this.formTask = formBuilder.group({
       description: [this.isUpdateTask ? this.data.description : '',
       Validators.compose([

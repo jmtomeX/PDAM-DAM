@@ -77,7 +77,7 @@ export class ServicioPersonasService {
   public addPersona(item: Persona) {
     this.servicioHttp.createItem(item).subscribe((data) => {
       // console.log(data);
-      this.servicioStorage.setObject('personas', this.personas)
+      this.servicioStorage.setObject('personas', [this.personas, item])
         .then(() => {
           // añadir persona al array
           this.personas = [...this.personas, item];

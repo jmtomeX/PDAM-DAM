@@ -51,13 +51,13 @@ export class ServiceTaskService {
   public addTask(item: Task) {
     // añadir una tarea a la base de datos.
     this.servicioHttp.createItem(item).subscribe((data) => {
-      this.servicioStorage.setObject('tareas', this.tasks)
+      this.servicioStorage.setObject('tareas', [...this.tasks, item])
         .then(() => {
           // añadir tarea al array
           this.tasks = [...this.tasks, item];
         })
         .catch((err) => {
-          // comtemplo es storage como importante por lo que lo elimino de la bbdd
+          // se comtempla el storage como importante por lo que se elimina de la bbdd
           this.servicioHttp.deleteItem(data.id); // al item no se le ha dado un id, lo da el servidor
         });
     });
@@ -82,26 +82,25 @@ export class ServiceTaskService {
   public updateTask(item: Task, id) {
 
     const index: number = this.tasks.findIndex(task => task.id === id);
-
-    // Actualizar la bbdd
-
-    // Actualizar el local storage
-
-    // Actualizar el array
-    console.log(index);
-    // tslint:disable-next-line: prefer-const
     let auxTask: Task = this.tasks.find(task => task.id === id);
     auxTask.description = item.data.description;
     auxTask.isImportant = item.data.isImportant;
-    this.tasks = [...this.tasks.slice(0, index), auxTask, ...this.tasks.slice(index + 1)];
+    // Actualizar la bbdd
+    this.servicioHttp.updateItem(id, item).subscribe((data) => {
+      // Actualizar el array
+      // tslint:disable-next-line: prefer-const
+      this.tasks = [...this.tasks.slice(0, index), auxTask, ...this.tasks.slice(index + 1)];
+
+      // Actualizar el local storage
+      this.servicioStorage.removeItem(id);
+      // cargamos el array en el storage
+      this.servicioStorage.setObject('tareas', [...this.tasks, item]);
+    });
+
   }
 
   // función para devolver una tarea por id
   public getTask(id): Task {
-    // devolver una tarea de la bbdd
-
-    // devolver una tarea del storage
-
     // devolver una tarea del array
     // tslint:disable-next-line: triple-equals
     const task = this.tasks.find(taskFind => taskFind.id == id);

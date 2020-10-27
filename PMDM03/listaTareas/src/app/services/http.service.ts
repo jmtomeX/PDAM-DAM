@@ -74,15 +74,13 @@ export class HttpServiceService {
     }
 
     updateItem(id, item): Observable<Task> {
-
-        return this.http
+             return this.http
             .put<Task>(
                 this.BASE_PATH + '/' + id,
                 JSON.stringify(item),
                 this.httpOptions
             )
             .pipe(retry(2), catchError(this.handleError));
-
     }
 
 

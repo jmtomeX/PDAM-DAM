@@ -33,7 +33,7 @@ export class HomePage implements OnInit {
     this.serviceTask.deleteTask(item);
   }
 
-  // Nueva función para presentar el modal
+  // función para presentar el modal
   async presentModal(isUpdateTask, idTask?) {
     let message = 'Tarea modificada.';
     let valueTask;
@@ -64,7 +64,6 @@ export class HomePage implements OnInit {
         if (valueTask.description !== data.data.description ||
           dataIsImportant !== data.data.isImportant) {
           this.serviceTask.updateTask(data, idTask);
-          // comprobar checks terminados
 
           this.presentToast(message);
         } else {
