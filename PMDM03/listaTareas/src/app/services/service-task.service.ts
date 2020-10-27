@@ -87,14 +87,21 @@ export class ServiceTaskService {
     auxTask.isImportant = item.data.isImportant;
     // Actualizar la bbdd
     this.servicioHttp.updateItem(id, auxTask).subscribe((data) => {
-      // Actualizar el array
-      // tslint:disable-next-line: prefer-const
-      this.tasks = [...this.tasks.slice(0, index), auxTask, ...this.tasks.slice(index + 1)];
-
       // Actualizar el local storage
       this.servicioStorage.removeItem(id);
       // cargamos el array en el storage
-      this.servicioStorage.setObject('tareas', [...this.tasks, item]);
+      this.servicioStorage.setObject('tareas', [...this.tasks, item])
+        .then(() => {
+          // Actualizar el array
+          // tslint:disable-next-line: prefer-const
+          this.tasks = [...this.tasks.slice(0, index), auxTask, ...this.tasks.slice(index + 1)];
+          
+        })
+        .catch((error) => {
+          // el storage no es importante y actualiza el array
+          this.tasks = [...this.tasks.slice(0, index), auxTask, ...this.tasks.slice(index + 1)];
+        });
+
     });
 
   }
