@@ -90,12 +90,16 @@ export class HomePage implements OnInit {
     toast.present();
   }
 
-  onChange($event, id) {
-    console.log('Cambio chek ' + $event.target.value);
-    // Falta recoger el valor del check para enviarlo
-    const valueTask = this.serviceTask.getTask(id);
+  onChange($event, item: Task) {
+    item.finished = $event.target.checked;
+    console.log('Cambio cheked ' + $event.target.checked);
+    console.log(item);
 
-    this.serviceTask.updateTask(valueTask, id);
+    //const updateTaskState = Task.cloneTask(item);
+
+    // Falta recoger el valor del check para enviarlo
+
+    // this.serviceTask.updateTask(item);
   }
 
 }

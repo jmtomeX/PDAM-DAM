@@ -14,7 +14,8 @@
         <div>
           <ion-checkbox
             [ngModel]="item.finished"
-            (ionChange)="onChange($event, item.id)"
+            (ionChange)="onChange($event, item)"
+            checked
           ></ion-checkbox>
         </div>
 
@@ -65,7 +66,7 @@
             [(ngModel)]="item.finished"
             ></ion-checkbox>
             <!-- (ionChange)="updateFinished(item)" -->
-            <!-- ionChange="onChange($event)" -->
+        
         </div>
         <!-- Sliding ******************************************************************** -->
         <ion-item-sliding>

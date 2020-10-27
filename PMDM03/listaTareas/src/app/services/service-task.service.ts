@@ -117,7 +117,7 @@ export class ServiceTaskService {
     const loading = await this.loadingController.create({
 
       message: 'Cargando datos...',
-      duration: 3000
+      duration: 1000
     });
     await loading.present();
 
