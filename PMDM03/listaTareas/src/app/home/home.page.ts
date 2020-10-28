@@ -90,12 +90,14 @@ export class HomePage implements OnInit {
     toast.present();
   }
 
+  // función para mandar el estado del checked de terminado
   onChange($event, item: Task) {
     item.finished = $event.target.checked;
     console.log('Cambio cheked ' + $event.target.checked);
     console.log(item);
 
-    //const updateTaskState = Task.cloneTask(item);
+    const updateTaskState = Task.cloneTask(item);
+    this.serviceTask.updateTask(item, item.id, true);
 
     // Falta recoger el valor del check para enviarlo
 

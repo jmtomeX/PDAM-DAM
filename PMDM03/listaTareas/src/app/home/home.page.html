@@ -64,6 +64,7 @@
         <div>
           <ion-checkbox
             [(ngModel)]="item.finished"
+            (ionChange)="onChange($event, item)"
             ></ion-checkbox>
             <!-- (ionChange)="updateFinished(item)" -->
         

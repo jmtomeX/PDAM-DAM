@@ -77,13 +77,18 @@ export class ServiceTaskService {
     this.servicioStorage.removeItem(itemString);
   }
 
-  // Se le pasa como parámetros el objeto modificado y el id del objeto a modificar
-  public updateTask(item: Task, id) {
-
+  // Se le pasa como parámetros el objeto modificado, el id del objeto a modificar y estado para el cambio de terminado.
+  public updateTask(item: Task, id?, changeState?: boolean) {
     const index: number = this.tasks.findIndex(task => task.id === id);
-    let auxTask: Task = this.tasks.find(task => task.id === id);
-    auxTask.description = item.data.description;
-    auxTask.isImportant = item.data.isImportant;
+    let auxTask: Task;
+    if (changeState) {
+      auxTask = this.tasks.find(task => task.id === item.id);
+      auxTask = item;
+    } else {
+      auxTask = this.tasks.find(task => task.id === id);
+      auxTask.description = item.data.description;
+      auxTask.isImportant = item.data.isImportant;
+    }
     // Actualizar la bbdd
     this.servicioHttp.updateItem(id, auxTask).subscribe((data) => {
       // Actualizar el local storage
