@@ -98,10 +98,10 @@ export class HomePage implements OnInit {
     this.serviceTask.updateTask(updateTaskState, updateTaskState.id, true);
   }
   onChangeFinished($event, item: Task) {
-    const updateTaskState = Task.cloneTask(item);
-    updateTaskState.finished = $event.target.checked;
+   // const updateTaskState = Task.cloneTask(item);
+    item.finished = $event.target.checked;
     // updateTask recibe como tercer parámetro true para indicarle que va a recibir el cambio
-    this.serviceTask.updateTask(updateTaskState, updateTaskState.id, true);
+    this.serviceTask.updateTask(item, item.id, true);
   }
 
 }

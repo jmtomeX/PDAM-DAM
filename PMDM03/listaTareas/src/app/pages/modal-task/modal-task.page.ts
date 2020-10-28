@@ -18,10 +18,12 @@ export class ModalTaskPage implements OnInit {
   formTask;
 
   // tslint:disable-next-line: max-line-length
-  constructor(public formBuilder: FormBuilder, public modalCtrl: ModalController, private activatedRoute: ActivatedRoute) {}
+  constructor(public formBuilder: FormBuilder, public modalCtrl: ModalController, private activatedRoute: ActivatedRoute) {
+
+
+  }
 
   ngOnInit() {
-
     if (this.isUpdateTask) {
       this.title = 'Modificar Tarea';
       this.actionSend = 'Modificar';
