@@ -18,9 +18,16 @@ export class ModalTaskPage implements OnInit {
   formTask;
 
   // tslint:disable-next-line: max-line-length
-  constructor(public formBuilder: FormBuilder, public modalCtrl: ModalController, private activatedRoute: ActivatedRoute) {
+  constructor(public formBuilder: FormBuilder, public modalCtrl: ModalController, private activatedRoute: ActivatedRoute) {}
+
+  ngOnInit() {
+
+    if (this.isUpdateTask) {
+      this.title = 'Modificar Tarea';
+      this.actionSend = 'Modificar';
+    }
     console.log('datos en el modal ' + JSON.stringify(this.data) + ' ' + this.isUpdateTask );
-    this.formTask = formBuilder.group({
+    this.formTask = this.formBuilder.group({
       description: [this.isUpdateTask ? this.data.description : '',
       Validators.compose([
         Validators.maxLength(30),
@@ -32,14 +39,6 @@ export class ModalTaskPage implements OnInit {
       Validators.compose([])
       ])
     });
-  }
-
-  ngOnInit() {
-
-    if (this.isUpdateTask) {
-      this.title = 'Modificar Tarea';
-      this.actionSend = 'Modificar';
-    }
   }
   ionViewWillEnter() {
   }
