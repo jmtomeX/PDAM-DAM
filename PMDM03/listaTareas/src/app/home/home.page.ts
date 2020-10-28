@@ -92,9 +92,10 @@ export class HomePage implements OnInit {
 
   // función para mandar el estado del checked de terminado
   onChange($event, item: Task) {
-    item.finished = $event.target.checked;
     const updateTaskState = Task.cloneTask(item);
-    this.serviceTask.updateTask(item, item.id, true);
+    updateTaskState.finished = $event.target.checked;
+    // updateTask recibe como tercer parámetro true para indicarle que va a recibir el cambio de estado.
+    this.serviceTask.updateTask(updateTaskState, updateTaskState.id, true);
   }
 
 }
