@@ -6,7 +6,6 @@
     >
   </ion-toolbar>
 </ion-header>
-
 <ion-content [fullscreen]="true">
   <div>
     <ion-list *ngFor="let item of serviceTask.tasks | orderTask" lines="none">
@@ -15,58 +14,58 @@
           <ion-checkbox
             [ngModel]="item.finished"
             (ionChange)="onChange($event, item)"
-            ></ion-checkbox>
+          ></ion-checkbox>
         </div>
-        
+
         <!-- Sliding ******************************************************************** -->
         <ion-item-sliding>
           <ion-item>
             <ion-label
-            class="ion-padding-start"
-            [ngStyle]="{
+              class="ion-padding-start"
+              [ngStyle]="{
               'font-weight': item.isImportant ? 'bold' : 'normal'
             }"
             >
-            {{ item.description }}</ion-label
+              {{ item.description }}</ion-label
             >
           </ion-item>
-          
+
           <ion-item-options side="end">
             <ion-item-option (click)="presentModal(true, item.id)"
               >Modificar</ion-item-option
-              >
-              <ion-item-option color="danger" (click)="deleteTask(item)"
+            >
+            <ion-item-option color="danger" (click)="deleteTask(item)"
               >Borrar</ion-item-option
-              >
-            </ion-item-options>
-          </ion-item-sliding>
-          
-          <!-- End  Sliding  **************************************************************-->
-        </ion-item>
-      </ion-list>
-      
+            >
+          </ion-item-options>
+        </ion-item-sliding>
+
+        <!-- End  Sliding  **************************************************************-->
+      </ion-item>
+    </ion-list>
+
     <!-- *****************************************************************************  -->
-    
+
     <!-- <ion-item lines="node" *ngIf="withFinishedTasks" lines="none"> -->
-    <ion-item lines="node" *ngIf="(serviceTask.tasks | completedTasks).length > 0" lines="none">
+    <ion-item
+      lines="node"
+      *ngIf="(serviceTask.tasks | completedTasks).length > 0"
+      lines="none"
+    >
       <ion-label> Tareas terminadas </ion-label>
     </ion-item>
-    
-    <!-- *****************************************************************************  -->
-    <ion-list *ngFor="let item of serviceTask.tasks | completedTasks" lines="none">
-      <ion-item
-      lines="none"
-      >
-      <!-- <ion-list *ngFor="let item of serviceTask.tasks" lines="none">
-        <ion-item *ngIf="(serviceTask | completedTasks).length > 0" lines="none"> -->
-          
-          <div>
-            <ion-checkbox
-            [ngModel]="item.finished"
-            ></ion-checkbox>
-            <!-- (ionChange)="onChange($event, item)" -->
 
-            
+    <!-- *****************************************************************************  -->
+    <ion-list
+      *ngFor="let item of serviceTask.tasks | completedTasks"
+      lines="none"
+    >
+      <ion-item lines="none">
+        <div>
+          <ion-checkbox
+            [ngModel]="item.finished"
+            (ionChange)="offChange($event, item)"
+          ></ion-checkbox>
         </div>
         <!-- Sliding ******************************************************************** -->
         <ion-item-sliding>
@@ -81,7 +80,6 @@
               {{ item.description }}</ion-label
             >
           </ion-item>
-
           <ion-item-options side="end">
             <ion-item-option color="danger" (click)="deleteTask(item)"
               >Borrar</ion-item-option

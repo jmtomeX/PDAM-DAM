@@ -4,6 +4,7 @@ import { ModalController, ToastController } from '@ionic/angular';
 import { ServiceTaskService } from '../services/service-task.service';
 import { Task } from '../model/task';
 import { Router } from '@angular/router';
+import { FormBuilder } from '@angular/forms';
 
 
 
@@ -13,15 +14,18 @@ import { Router } from '@angular/router';
   styleUrls: ['home.page.scss'],
 })
 export class HomePage implements OnInit {
-  modalupdate;
-  withFinishedTask;
   isUpdateTask = false;
-
   // tslint:disable-next-line: max-line-length
-  constructor(public modalCtrl: ModalController, public serviceTask: ServiceTaskService, public router: Router, public toastController: ToastController) {
+  constructor(
+    public modalCtrl: ModalController,
+
+    public serviceTask: ServiceTaskService,
+    public router: Router,
+    public toastController: ToastController,
+    public formBuilder: FormBuilder
+  ) {
   }
   ngOnInit() {
-
   }
   // justo antes de animar la vista
   ionViewWillEnter() { }
@@ -41,7 +45,6 @@ export class HomePage implements OnInit {
 
     if (isUpdateTask) {
       valueTask = this.serviceTask.getTask(idTask);
-      console.log('Home if update ' + JSON.stringify(valueTask));
       dataIsImportant = valueTask.isImportant;
     }
 
@@ -90,18 +93,23 @@ export class HomePage implements OnInit {
     toast.present();
   }
 
-  // función para mandar el estado del checked de terminado
+  // función para mandar el estado del checked de terminado o no
   onChange($event, item: Task) {
+    if ($event.target.checked) {
+      this.callUpdate($event, item);
+    }
+  }
+  offChange($event, item: Task) {
+    if (!$event.target.checked) {
+      this.callUpdate($event, item);
+    }
+  }
+  // llamada a la función de actualizar
+  callUpdate($event, item: Task) {
     const updateTaskState = Task.cloneTask(item);
     updateTaskState.finished = $event.target.checked;
     // updateTask recibe como tercer parámetro true para indicarle que va a recibir el cambio
     this.serviceTask.updateTask(updateTaskState, updateTaskState.id, true);
-  }
-  onChangeFinished($event, item: Task) {
-   // const updateTaskState = Task.cloneTask(item);
-    item.finished = $event.target.checked;
-    // updateTask recibe como tercer parámetro true para indicarle que va a recibir el cambio
-    this.serviceTask.updateTask(item, item.id, true);
   }
 
 }
