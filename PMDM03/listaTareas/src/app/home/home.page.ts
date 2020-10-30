@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { ModalTaskPage } from '../pages/modal-task/modal-task.page';
-import { ModalController, ToastController } from '@ionic/angular';
+import { IonList, ModalController, ToastController } from '@ionic/angular';
 import { ServiceTaskService } from '../services/service-task.service';
 import { Task } from '../model/task';
 import { Router } from '@angular/router';
@@ -15,6 +15,8 @@ import { FormBuilder } from '@angular/forms';
 })
 export class HomePage implements OnInit {
   isUpdateTask = false;
+  // hacer referencia al elemento de html(ion-list) en este caso
+  @ViewChild(IonList) ionList: IonList;
   // tslint:disable-next-line: max-line-length
   constructor(
     public modalCtrl: ModalController,
@@ -83,6 +85,8 @@ export class HomePage implements OnInit {
         this.presentToast(message);
       }
     }
+    // metodo que cierra el sliding al clickar
+    this.ionList.closeSlidingItems();
   }
 
   async presentToast(message) {

@@ -28,7 +28,7 @@ export class ModalTaskPage implements OnInit {
       this.title = 'Modificar Tarea';
       this.actionSend = 'Modificar';
     }
-    console.log('datos en el modal ' + JSON.stringify(this.data) + ' ' + this.isUpdateTask );
+    console.log('datos en el modal ' + JSON.stringify(this.data) + ' ' + this.isUpdateTask);
     this.formTask = this.formBuilder.group({
       description: [this.isUpdateTask ? this.data.description : '',
       Validators.compose([
@@ -51,6 +51,7 @@ export class ModalTaskPage implements OnInit {
 
   public sendTask(value) {
     // devolver la informacion a la vista home
+    console.log(value);
     this.modalCtrl.dismiss({
       // tslint:disable-next-line: object-literal-key-quotes
       data: value
