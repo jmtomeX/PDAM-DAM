@@ -29,6 +29,12 @@ export class ServiceTaskService {
       });
 
     // cargar datos desde el servidor retardando la carga
+    this.loadBBDDData();
+  }
+
+  // cargade datos desde el servidor
+  private loadBBDDData() {
+    // cargar datos desde el servidor retardando la carga
     this.presentLoading().then(() => {
       this.servicioHttp.getList().subscribe(
         (datos) => {
@@ -44,7 +50,6 @@ export class ServiceTaskService {
         (error) => console.log(error)
       );
     });
-
   }
 
   // añadir task bbdd, storage y array
@@ -55,6 +60,7 @@ export class ServiceTaskService {
         .then(() => {
           // añadir tarea al array
           this.tasks = [...this.tasks, item];
+          this.loadBBDDData();
         })
         .catch((err) => {
           // se comtempla el storage como importante por lo que se elimina de la bbdd
@@ -104,7 +110,7 @@ export class ServiceTaskService {
           // el storage no es importante y actualiza el array
           this.tasks = [...this.tasks.slice(0, index), auxTask, ...this.tasks.slice(index + 1)];
         });
-
+      this.loadBBDDData();
     });
 
   }
